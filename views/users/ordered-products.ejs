@@ -1,0 +1,53 @@
+
+<h1 class=" m-t-100 pt-5 text-muted mx-5 px-5" style="font-size: 55px">Itmes</h1>
+<div class=" d-flex justify-content-center pb-5" style="overflow: hidden !important">
+
+<!-- <div class="row"> -->
+
+<% orderedItems.forEach(function(item){ %>
+
+<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item mt-5 <%= //product.gender %> shadow  ">
+    <!-- Block2 -->
+    <div class="block2 shadow-lg card me-border-rad25 me-box-shadow" >
+        <div class="block2-pic hov-img0">
+            <!-- <img src="uploads/products/<%= item.products[0].img1 %>" style="width: 300px; height: 337px;object-fit: fill" alt="IMG-PRODUCT"> -->
+            <img src="uploads/products/<%= item.products[0].img1 %>" style="width: 300px; height: 300px;object-fit: fill" style alt="IMG-PRODUCT">
+<!-- js-show-modal1 class edited-->
+            <a href="/product-details?id=<%= item.products[0]._id %>"
+                class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                View Product
+            </a>
+        </div>
+
+        <div class="block2-txt flex-w flex-t p-tb-14 p-lr-15  rounded" style="height: 100px">
+            <div class="block2-txt-child1 flex-col-l ">
+                <a href="" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                    <%= item.products[0].title %>
+                </a>
+
+                <span class="stext-105 cl3">
+                    ₹<%= item.products[0].price %>
+                </span>
+            </div>
+
+            <div class="block2-txt-child2 flex-r p-t-3">
+                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                    <img class="icon-heart1 dis-block trans-04" src="/assets/images/icons/icon-heart-01.png"
+                        alt="ICON">
+                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="/assets/images/icons/icon-heart-02.png"
+                        alt="ICON">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<% }) %>
+
+
+
+
+</div>
+
+

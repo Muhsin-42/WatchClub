@@ -1,0 +1,652 @@
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+
+@import url("https://rsms.me/inter/inter.css");
+
+:root {
+  --color-gray: #737888;
+  --color-lighter-gray: #e3e5ed;
+  --color-light-gray: #f7f7fa;
+}
+
+
+p {
+  color: var(--color-gray);
+}
+
+hr {
+  height: 1px;
+  width: 100%;
+  background-color: var(--color-light-gray);
+  border: 0;
+  margin: 2rem 0;
+}
+
+.containerAddForm {
+  max-width: 40rem;
+  /* padding: 10vw 2rem 0; */
+  margin: 0 auto;
+  /* height: 100vh; */
+}
+
+.formAddForm {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+.fieldAddForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-lighter-gray);
+  padding: .5rem;
+  border-radius: .25rem;
+}
+
+.field__labelAddForm {
+  color: var(--color-gray);
+  font-size: 0.6rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem
+}
+
+.field__inputAddForm {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+}
+.fieldAddForm:focus-within {
+  border-color: #000;
+}
+
+.fieldsAddForm {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+.buttonAddForm {
+  background-color: #000;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: block;
+  color: #fff;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+}
+.cancelAddForm {
+  /* background-color: #979fd9; */
+  background-color: #fff;
+
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: block;
+  color: #000;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid black;
+  cursor: pointer;
+  outline: 0;
+}
+.cancelAddForm:hover{
+  background-color: #000;
+  color: #fff;
+}
+.buttonAddForm:focus-visible {
+  background-color: #333;
+}
+
+
+    .profile-pic{
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        /* position: relative;
+        left: 15%; */
+    }
+    .me-pointer:hover{
+        cursor: pointer !important;
+    }
+    #myOrders,#myAddress{
+        display: none;
+    }
+    body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}    
+</style>
+
+<div class="container  m-t-100 m-b-100  pt-5">
+    <div class="row">
+        <div class="col  col-sm-12 col-lg-3 col-12 col-md-3 mb-5 ">
+            <div class="container d-flex justify-content-center">
+                <img src="assets/images/profile-pic.svg" class="profile-pic" alt="">
+            </div>
+            <!-- <i class="zmdi zmdi-edit" id="dpEditBtn"></i> -->
+            <div class="container">
+                <h3 class="text-center mt-2"><%= userDetails.name%></h3>
+                <h4 class="text-center mt-2">Wallet</h4>
+                <h4 class="text-center mt-2">₹<%=userDetails.wallet%></h5>
+            </div>
+        </div>
+        <div class="col col-sm-12 col-lg-9 col-md-9" id="tempId">
+            <div class="row  ">
+                <div class="col col-2 h4 me-pointer text-muted" id="detailsHead" onclick="myDetailsShow()" style="min-width: max-content">My Details</div>
+                <div class="col col-2 h4 me-pointer text-dark" id="addressHead" onclick="addressShow()" style="min-width: max-content">Address</div>
+                <!-- <div class="col col-2 h4 me-pointer " id="ordersHead" onclick="ordersShow()">Orders</div> -->
+                <!-- <a href="/orders" class="text-decoration-none"> -->
+                    <a href="/orders" class="col col-2 h4 me-pointer text-dark text-decoration-none" id="ordersHead" style="min-width: max-content">Orders</a>
+                <!-- </a> -->
+            </div>
+
+            <!-- My Profile -->
+            <div class="container mt-3 p-5 me-box-shadow  " style="border-radius: 18px" id="myDetails">
+                <form >
+                    <span class="h2">Personal Information</span>
+                    <div class="row mt-2">
+                        <div class="col col-12 col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group ">
+                              <input type="text" class="form-control form-control-lg meToggleDisable" id="fname" value="<%= userDetails.name %>"   placeholder="First Name" disabled>
+                            </div>
+                        </div>
+                        <div class="col col-12 col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                              <input type="text" class="form-control form-control-lg meToggleDisable" id="lname" value="<%= userDetails.lastname %>" placeholder="Last Name" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-12 col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                              <input type="email" class="form-control form-control-lg meToggleDisable" id="email" value="<%= userDetails.email %>"  placeholder="Enter Email"  disabled>
+                              <span class="d-none" id="emailErrorMsg" style="color: red" >Email already used!</span>
+                            </div>
+                        </div>
+                        <div class="col col-12 col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                              <input type="phone" class="form-control form-control-lg meToggleDisable" id="phone" value="<%= userDetails.phone %>" placeholder="Phone Number" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-2">
+                        <span class="h4 ">Your Gender</span>
+                        <div class="row  p-3 ">
+                            <div class="col col-sm-12 col-lg-1 ">
+                                <div class="form-check">
+                                    <input class="form-check-input form-control-lg meToggleDisable" type="radio" name="gender" id="male" value="male" disabled <%= userDetails.gender=='male'? 'checked' :'' %>  >
+                                    <label >
+                                    Male
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col col-sm-12 col-lg-1 ml-5">
+                                <div class="form-check">
+                                  <input class="form-check-input  form-control-lg meToggleDisable" type="radio" name="gender" id="female" value="female" disabled <%= userDetails.gender=='female'?'checked' :'' %>>
+                                  <label >
+                                      Female
+                                  </label>
+                                </div>
+                            </div>
+                        </div>               
+                    </div>
+                    <div class="d-flex justify-content-end">    
+                        <button type="button" class="btn btn-primary"  id="editDetailsBtn" onclick="editDetails()">Edit</button>
+                    </div>
+                    <div class="d-flex justify-content-end">    
+                        <a href="/change-password">Change Password</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- My Address -->
+            <div class="container mt-3 me-pointer " id="myAddress"  >
+                <div class="container border me-box-shadow">
+                    <span class="d-block p-3 font-weight-bold text-primary " onclick="addAddressShow()"> <span class="h3">+</span>  &nbsp; &nbsp; &nbsp;  ADD A NEW ADDRESS</span>
+
+                    <div class="container d-none" id="addAddressDiv">
+                        <div class="containerAddForm mt-5">
+                            <h1>Shipping</h1>
+                            <p>Please enter your shipping details.</p>
+                            <hr />
+                            <!-- <form action="add-address-profile" method="post" > -->
+                                <div class="formAddForm">
+                                
+                                    <div class="row">
+                                        <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="firstname">Name</span>
+                                                <input required class="field__inputAddForm" type="text" id="firstname" name="name"  />
+                                            </label>
+                                        </div>
+                                        <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="lastname">10-digit mobile number</span>
+                                                <input required class="field__inputAddForm" type="tel"  id="lastname" name="phone"  />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <label class="fieldAddForm">
+                                        <span class="field__labelAddForm" for="country">Country</span>
+                                        <select class="field__inputAddForm" name="country" id="country">
+                                            <option value="India">India</option>
+                                        </select>
+                                    </label>
+                                    
+                                    <label class="fieldAddForm">
+                                        <span class="field__labelAddForm" for="address">Address</span>
+                                        <input required class="field__inputAddForm" type="text" name="address" id="address" />
+                                    </label>
+
+                                    <div class="row">
+                                        <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="zipcode">Pin code</span>
+                                                <input required class="field__inputAddForm" type="text" name="pincode" id="zipcode" />
+                                            </label>
+                                        </div>
+                                        <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="city">Town / City</span>
+                                                <input required class="field__inputAddForm" name="city" type="text" id="city" />
+                                            </label>
+                                        </div>
+                                        <div class="col col-12 col-lg-4 col-md-12 col-sm-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="state">State</span>
+                                                <select class="field__inputAddForm" id="state" name="state">
+                                                <option value="Kerala">Kerala</option>
+                                                <option value="Karnataka">Karnataka</option>
+                                                <option value="Tamilnadu">Tamilnadu</option>
+                                                <option value="Goa">Goa</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col col-12 col-lg-6 col-md-12 col-sm-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="firstname">District</span>
+                                                <input required class="field__inputAddForm" type="text" id="firstname" name="district" />
+                                            </label>
+                                        </div>
+                                        <div class="col col-12 col-lg-6 col-md-12 col-sm-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="firstname">Landmark</span>
+                                                <input required class="field__inputAddForm" type="text" id="firstname" name="landmark" />
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+                                    <div class="row mb-3">
+                                        <div class="col col-8 col-lg-8 col-sm-12">
+                                            <button class="buttonAddForm mb-3" onclick="addAddress()" >ADD ADDRESS</button>
+                                            <!-- <button class="buttonAddForm mb-3" >ADD ADDRESS</button> -->
+                                        </div>
+                                        <div class="col col-4 col-lg-4 col-sm-12">
+                                            <button class="cancelAddForm mb-3" onclick="addAddressHide()" id="hideAddressBtn">CANCEL</button>
+                                            <!-- <button class="cancelAddForm mb-3"  id="hideAddressBtn">CANCEL</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- </form> -->
+                        </div>
+                    </div>
+                </div>
+
+                <% addresses.forEach(address => { %>
+                    <div class="container mt-3 me-pointer border p-3" >
+                        <div class="row pl-3 justify-content-between">
+                            <span class="h5 " style="color: #000"><%= address.name %> &nbsp; &nbsp; &nbsp; <%= address.phone %> </span>       
+                            <a href="" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 " data-toggle="dropdown"  >
+                                <i class="zmdi zmdi-more-vert px-5" aria-labelledby="dropdownMenuButton" style="font-size: x-large"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <span class="dropdown-item"  onclick="addressEditShow('<%= address._id %>')">Edit</span>
+                                    <span class="dropdown-item" onclick="deleteAddress('<%= address._id %>')">Delete</span>
+                            </div>
+                        </div>
+                        <span class="d-block"><%= address.fullAddress %></span>
+                        <span class="d-block">Kerala - 94858394</span>
+
+                        <!-- Edit form -->
+                        <div class="containerAddForm mt-5 d-none" id="editForm<%= address._id %>">
+                            <hr />
+                            <!-- <form action="add-address-profile" method="post" > -->
+                                <div class="formAddForm">
+                                
+                                    <div class="row">
+                                        <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="firstname">Name</span>
+                                                <input required class="field__inputAddForm" type="text" value="<%= address.name %>" id="firstname" name="name<%= address._id %>"  />
+                                            </label>
+                                        </div>
+                                        <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="lastname">10-digit mobile number</span>
+                                                <input required class="field__inputAddForm" type="tel" value="<%= address.phone %>"  id="lastname" name="phone<%= address._id %>"  />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <label class="fieldAddForm">
+                                        <span class="field__labelAddForm" for="country">Country</span>
+                                        <select class="field__inputAddForm" name="country" value="<%= address.name %>" id="country<%= address._id %>">
+                                            <option value="India">India</option>
+                                        </select>
+                                    </label>
+                                    
+                                    <label class="fieldAddForm">
+                                        <span class="field__labelAddForm" for="address">Address</span>
+                                        <input required class="field__inputAddForm" type="text" value="<%= address.fullAddress %>" name="address<%= address._id %>" id="address" />
+                                    </label>
+
+                                    <div class="row">
+                                        <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="zipcode">Pin code</span>
+                                                <input required class="field__inputAddForm" type="text" value="<%= address.pincode %>" name="pincode<%= address._id %>" id="zipcode" />
+                                            </label>
+                                        </div>
+                                        <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="city">Town / City</span>
+                                                <input required class="field__inputAddForm" value="<%= address.city %>" name="city<%= address._id %>" type="text" id="city" />
+                                            </label>
+                                        </div>
+                                        <div class="col col-12 col-lg-4 col-md-12 col-sm-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="state">State</span>
+                                                <select class="field__inputAddForm" id="state" name="state<%= address._id %>">
+                                                <option value="Kerala">Kerala</option>
+                                                <option value="Karnataka">Karnataka</option>
+                                                <option value="Tamilnadu">Tamilnadu</option>
+                                                <option value="Goa">Goa</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col col-12 col-lg-6 col-md-12 col-sm-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="firstname">District</span>
+                                                <input class="field__inputAddForm"  type="text" value="<%= address.district %>" id="firstname" name="district<%= address._id %>" />
+                                            </label>
+                                        </div>
+                                        <div class="col col-12 col-lg-6 col-md-12 col-sm-12">
+                                            <label class="fieldAddForm">
+                                                <span class="field__labelAddForm" for="firstname">Landmark</span>
+                                                <input required class="field__inputAddForm" value="<%= address.landmark %>" type="text" id="firstname" name="landmark<%= address._id %>" />
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+                                    <div class="row mb-3">
+                                        <div class="col col-8 col-lg-8 col-sm-12">
+                                            <button class="buttonAddForm mb-3" onclick="editAddress('<%= address._id %>')" >UPDATE ADDRESS</button>
+                                            <!-- <button class="buttonAddForm mb-3" >ADD ADDRESS</button> -->
+                                        </div>
+                                        <div class="col col-4 col-lg-4 col-sm-12">
+                                            <button class="cancelAddForm mb-3" onclick="editAddressHide('<%= address._id %>')" id="hideAddressBtn">CANCEL</button>
+                                            <!-- <button class="cancelAddForm mb-3"  id="hideAddressBtn">CANCEL</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- </form> -->
+                        </div>
+                    </div>
+                <%   }); %> 
+
+            </div>
+
+
+            <!-- My Orders -->
+            <div class="container" id="myOrders">
+                <h3 class="mt-3">My orders</h3>
+                <hr>
+                <div class="cotainer border">
+                    <div class="d-flex">
+                        <div class="p-2">ORDER PLACED</div>
+                        <div class="p-2 pl-5">TOTAL</div>
+                        <div class="ml-auto p-2">ORDER ID : 04834837482374</div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="p-2">9 SEPTEMBER 2022</div>
+                        <div class="p-2">₹5834</div>
+                        <div class="ml-auto p-2">ORDER ID : 04834837482374</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Toggle around Details, Address, Orders -->
+<script>
+    function myDetailsShow(){
+        document.getElementById('myDetails').style.display = "block";
+        document.getElementById('detailsHead').style.setProperty('background-color', 'white', 'important');
+        document.getElementById('myAddress').style.display = "none";
+        document.getElementById('myOrders').style.display = "none";
+
+                //Head
+        document.getElementById('detailsHead').classList.add('text-muted');
+        document.getElementById('addressHead').classList.remove('text-muted');
+    }
+    function addressShow(){
+        // alert('address') 
+        document.getElementById('myAddress').style.display = "block";
+        document.getElementById('myOrders').style.display = "none";
+        document.getElementById('myDetails').style.display = "none";
+
+        //Head
+        document.getElementById('detailsHead').classList.remove('text-muted');
+        document.getElementById('addressHead').classList.add('text-muted');
+    }
+    function ordersShow(){
+        document.getElementById('myOrders').style.display = "block";
+        document.getElementById('myAddress').style.display = "none";
+        document.getElementById('myDetails').style.display = "none";
+    }
+</script>
+
+
+<!-- Edit Details -->
+<script>
+    function editDetails(){
+        var disabled = document.getElementById("fname").disabled;
+        if (disabled) {   
+            document.querySelectorAll('.meToggleDisable').forEach(e => e.disabled = false);
+            document.getElementById('editDetailsBtn').innerHTML ='SAVE'
+            document.getElementById('editDetailsBtn').classList.add('btn-success')
+        }else{  // To save the changes
+
+            $.ajax({
+                url:'/edit-user-details',
+                data:{
+                    name : $('#fname').val(),
+                    lname : $('#lname').val(),
+                    email : $('#email').val(),
+                    phone : $('#phone').val(),
+                    gender : $('input[name=gender]').val()
+                },
+                method: 'post',
+                success:(response)=>{
+                    if(response.success){
+                        document.querySelectorAll('.meToggleDisable').forEach(e => e.disabled = true);
+                        document.getElementById('editDetailsBtn').innerHTML ='EDIT'
+                        document.getElementById('editDetailsBtn').classList.add('btn-primary')
+                        document.getElementById('editDetailsBtn').classList.remove('btn-success')
+                        document.getElementById('emailErrorMsg').classList.add('d-none')
+
+                        Swal.fire(
+                            'Good job!',
+                            'Your details has been Updated',
+                            'success'
+                            )
+                    }   
+                    else if(response.emailExist){
+                        document.getElementById('emailErrorMsg').classList.remove('d-none')
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: response.message,
+                        })
+                    }
+                }
+            })
+        }
+    }
+</script>
+
+<!-- Address  -->
+<script>
+    function addAddressShow(){
+        document.getElementById('addAddressDiv').classList.remove('d-none')
+    }
+    function addAddressHide(){
+        document.getElementById('addAddressDiv').classList.add('d-none')
+    }
+
+    function addAddress(){
+        $.ajax({
+                url:'/add-address-profile',
+                data:{
+                    name : $('input[name=name]').val(),
+                    phone : $('input[name=phone]').val(),
+                    country : $('select[name=country]').val(),
+                    address : $('input[name=address]').val(),
+                    pincode : $('input[name=pincode]').val(),
+                    city : $('input[name=city]').val(),
+                    state : $('select[name=state]').val(),
+                    district : $('input[name=district]').val(),
+                    landmark : $('input[name=landmark]').val()
+                },
+                method: 'post',
+                success:(response)=>{
+                    if(response.success){
+                        Swal.fire(
+                            'Good job!',
+                            'The Address is added successfully!',
+                            'success'
+                            )
+                            setTimeout(function(){
+                            window.location.reload();
+                            }, 3000);
+                    }   
+                    else if(response.emailExist){
+                        // document.getElementById('emailErrorMsg').classList.remove('d-none')
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: response.message,
+                        })
+                    }
+                }
+            })
+    }
+
+</script>
+
+<!-- Edit/Delete Address -->
+<script>
+    function addressEditShow(addressId){
+         document.getElementById('editForm'+addressId).classList.remove('d-none')
+    }
+    function editAddressHide(addressId){
+         document.getElementById('editForm'+addressId).classList.add('d-none')
+    }
+
+    function editAddress(addressId){
+        $.ajax({
+                url:'/edit-address',
+                data:{
+                    addressId : addressId,
+                    name : $('input[name=name'+addressId+']').val(),
+                    phone : $('input[name=phone'+addressId+']').val(),
+                    country : $('select[name=country'+addressId+']').val(),
+                    address : $('input[name=address'+addressId+']').val(),
+                    pincode : $('input[name=pincode'+addressId+']').val(),
+                    city : $('input[name=city'+addressId+']').val(),
+                    state : $('select[name=state'+addressId+']').val(),
+                    district : $('input[name=district'+addressId+']').val(),
+                    landmark : $('input[name=landmark'+addressId+']').val()
+                },
+                method: 'post',
+                success:(response)=>{
+                    if(response.success){
+                        Swal.fire(
+                            'Good job!',
+                            'The Address is successfully Edited!',
+                            'success'
+                            )
+                            setTimeout(function(){
+                            window.location.reload();
+                            }, 3000);
+                    }   
+                    else {
+                        // document.getElementById('emailErrorMsg').classList.remove('d-none')
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                }
+            })
+    }
+
+    function deleteAddress(addressId){
+        $.ajax({
+                url:'/delete-address',
+                data:{
+                    addressId : addressId
+                },
+                method: 'delete',
+                success:(response)=>{
+                    if(response.success){
+                        // location.hash = 'addressShow'
+                        
+                        // setInterval(location.reload(),5000)
+                        $("#tempId").load(window.location.href + " #tempId" );
+
+                        Swal.fire(
+                            'Good job!',
+                            'The address is deleted!',
+                            'success'
+                        )
+                        // addressShow()
+
+                    }   
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                }
+        })
+    }  
+</script>

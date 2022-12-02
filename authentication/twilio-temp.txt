@@ -1,0 +1,17 @@
+One last step - save your recovery code
+If you lose your phone, or don't have access to your verification device, this code is your failsafe to access your account.
+JbNN3imQonOstGTyCHOp9D8yEJFzJj7i5ya3QsIU
+
+
+ecommerce_otp
+
+
+
+APP API KEY
+uAEIjZENdd0Ej4VKar5Ih64EzS3lSHpO
+App API Key is a secret, you should store it securely in your backend, never in your mobile app
+YOUR ACCESS KEY
+tpk4sGEEUqTgWpcpKz28jNxrBv9PsqJaN6EKTyhC35w
+Your Access Key is a secret, you should store it securely in your backend, never in your mobile app
+API SIGNING KEY
+FVqnb5i43RMfgtimyhcWbYx8glyZJLxT

@@ -1,0 +1,515 @@
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+    @import url("https://rsms.me/inter/inter.css");
+
+    :root {
+        --color-gray: #737888;
+        --color-lighter-gray: #e3e5ed;
+        --color-light-gray: #f7f7fa;
+    }
+
+
+    p {
+        color: var(--color-gray);
+    }
+
+    hr {
+        height: 1px;
+        width: 100%;
+        background-color: var(--color-light-gray);
+        border: 0;
+        margin: 2rem 0;
+    }
+
+    .containerAddForm {
+        max-width: 40rem;
+        /* padding: 10vw 2rem 0; */
+        margin: 0 auto;
+        /* height: 100vh; */
+    }
+
+    .formAddForm {
+        display: grid;
+        grid-gap: 1rem;
+    }
+
+    .fieldAddForm {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--color-lighter-gray);
+        padding: .5rem;
+        border-radius: .25rem;
+    }
+
+    .field__labelAddForm {
+        color: var(--color-gray);
+        font-size: 0.6rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem
+    }
+
+    .field__inputAddForm {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        outline: 0;
+        font-weight: bold;
+        font-size: 1rem;
+        width: 100%;
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: transparent;
+    }
+
+    .fieldAddForm:focus-within {
+        border-color: #000;
+    }
+
+    .fieldsAddForm {
+        display: grid;
+        grid-gap: 1rem;
+    }
+
+    .buttonAddForm {
+        background-color: #000;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: block;
+        color: #fff;
+        width: 100%;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        border: 0;
+        cursor: pointer;
+        outline: 0;
+    }
+
+    .cancelAddForm {
+        /* background-color: #979fd9; */
+        background-color: #fff;
+
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: block;
+        color: #000;
+        width: 100%;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        border: 1px solid black;
+        cursor: pointer;
+        outline: 0;
+    }
+
+    .cancelAddForm:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .buttonAddForm:focus-visible {
+        background-color: #333;
+    }
+</style>
+
+
+
+
+
+
+<!-- breadcrumb -->
+<div class="mt-5 pt-5">
+    <div class="container">
+        <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+            <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+                Home
+                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+            </a>
+            <a href="/cart" class="stext-109 cl4 hov-cl1 trans-04" >
+                Shoping Cart
+                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+            </a>
+            <span class="stext-109 cl4">
+                Checkout
+            </span>
+        </div>
+    </div>
+</div>
+<!-- Shoping Cart -->
+<form class="bg0 p-t-75 p-b-85" id="checkout-form">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50 ">
+                <div class="m-l-25 m-r--38 m-lr-0-xlme-box-shadow ">
+                    <div class="wrap-table-shopping-cart">
+                        <div id="accordion ">
+                            <div class="card ">
+
+                                <div class="card-header bg-dark">
+                                    <h5 class="mb-0">
+                                        <div class="text-white" aria-controls="collapseThree">
+                                            Delivery address
+                                        </div>
+                                    </h5>
+                                </div>
+
+
+
+                                <div id="collapseOne" class="collapse show " aria-labelledby="headingOne"
+                                    data-parent="#accordion">
+                                    <div class="container mt-3  me-pointer " id="myAddress">
+                                        <div class="container  ">
+                                            <!-- <span class="d-block p-3 font-weight-bold text-primary " onclick="addAddressShow()"> <span class="h3">+</span>  &nbsp; &nbsp; &nbsp;  ADD A NEW ADDRESS</span> -->
+
+                                            <div class="container " id="addAddressDiv">
+                                                <div class="containerAddForm mt-5">
+                                                    <h1>Shipping</h1>
+                                                    <p>Please select your address</p>
+                                                    <% addresses.forEach(address => { %>
+                                                        <div class="row mt-3">
+                                                            <div class="col col-1 text-center d-flex justify-content-end">
+                                                                <input onclick="addressSelected('<%= address._id %>')" type="radio" name="addressRadio" id="" style="display: inline">
+                                                            </div>
+                                                            <div class="col col-11">
+                                                                <span class="h5"><%= address.name %>, <%= address.phone %></span><br>
+                                                                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, fuga!</span> 
+                                                            </div>
+                                                        </div>
+                                                    <% }); %> 
+                                                    <hr />
+
+
+                                                    <!-- <form action="add-address-profile" method="post" > -->
+                                                    <div class="formAddForm">
+
+                                                        <div class="row">
+                                                            <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
+                                                                <label class="fieldAddForm">
+                                                                    <span class="field__labelAddForm"
+                                                                        for="firstname">Name</span>
+                                                                    <input required class="field__inputAddForm" type="text"
+                                                                        id="name" name="name" />
+                                                                </label>
+                                                            </div>
+                                                            <div class="col col-lg-6 col-md-12 col-sm-12 col-12">
+                                                                <label class="fieldAddForm">
+                                                                    <span class="field__labelAddForm"
+                                                                        for="lastname">10-digit mobile number</span>
+                                                                    <input required class="field__inputAddForm" type="tel"
+                                                                        id="lastname" name="phone" />
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <label class="fieldAddForm">
+                                                            <span class="field__labelAddForm"
+                                                                for="address">Country</span>
+                                                            <input required class="field__inputAddForm" type="text"
+                                                                name="country" id="country" />
+                                                        </label>
+
+                                                        <label class="fieldAddForm">
+                                                            <span class="field__labelAddForm"
+                                                                for="address">Address</span>
+                                                            <input required class="field__inputAddForm" type="text"
+                                                                name="address" id="address" />
+                                                        </label>
+
+                                                        <div class="row">
+                                                            <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+                                                                <label class="fieldAddForm">
+                                                                    <span class="field__labelAddForm" for="zipcode">Pin
+                                                                        code</span>
+                                                                    <input required class="field__inputAddForm" type="text"
+                                                                        name="pincode" id="zipcode" />
+                                                                </label>
+                                                            </div>
+                                                            <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+                                                                <label class="fieldAddForm">
+                                                                    <span class="field__labelAddForm" for="city">Town / City</span>
+                                                                    <input required class="field__inputAddForm" name="city" type="text" id="city" />
+                                                                </label>
+                                                            </div>
+                                                            <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+                                                                <label class="fieldAddForm">
+                                                                    <span class="field__labelAddForm" for="city">State</span>
+                                                                    <input required class="field__inputAddForm" name="state" type="text" id="state" />
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col col-12 col-lg-6 col-md-12 col-sm-12">
+                                                                <label class="fieldAddForm">
+                                                                    <span class="field__labelAddForm"
+                                                                        for="firstname">District</span>
+                                                                    <input required class="field__inputAddForm" type="text"
+                                                                        id="firstname" name="district" />
+                                                                </label>
+                                                            </div>
+                                                            <div class="col col-12 col-lg-6 col-md-12 col-sm-12">
+                                                                <label class="fieldAddForm">
+                                                                    <span class="field__labelAddForm"
+                                                                        for="firstname">Landmark</span>
+                                                                    <input required class="field__inputAddForm" type="text"
+                                                                        id="firstname" name="landmark" />
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- </form> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+                    <h4 class="mtext-109 cl2 ">
+                        Cart Totals
+                    </h4>
+
+
+                    <div class="flex-w flex-t p-t-27 pb-3">
+                        <div class="size-208">
+                            <span class="mtext-101 cl2">
+                                Sub Total:
+                            </span>
+                        </div>
+                        <div class="size-209 p-t-1">
+                            <h4 class="mtext-110 cl2 m-l-63 font-weight-bold">
+                                ₹ <span id="subTotal"><%= grandTotal %></span> 
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="flex-w flex-t  pb-3">
+                        <div class="size-208">
+                            <span class="mtext-101 cl2">
+                                Discount :
+                            </span>
+                        </div>
+                        <div class="size-209 p-t-1">
+                            <h4 class="mtext-110 cl2 m-l-63 font-weight-bold">
+                                ₹ <span id="discountAmount"><%= 0 %></span> 
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="flex-w flex-t  p-b-33">
+                        <div class="size-208">
+                            <span class="mtext-101 cl2">
+                                Total :
+                            </span>
+                        </div>
+                        <div class="size-209 p-t-1">
+                            <h4 class="mtext-110 cl2 m-l-63 font-weight-bold">
+                                ₹<span id="grandTotalF"><%= grandTotal %></span>
+                            </h4>
+                        </div>
+                    </div>
+                    <input id="grandTotalHidden" type="text" name="grandTotal" class="d-none" >
+                    <!-- <input id="couponHidden" type="text" name="coupon" class="d-none"> -->
+                    <input id="discountHidden" type="text" name="discount" class="d-none">
+                    <h4 class="mtext-109 cl2 p-b-30">
+                        Payment Option
+                    </h4>
+                    <% if(wallet>grandTotal){ %> 
+                        <div class="form-check">
+                            <input  class="form-check-input"  type="radio" name="paymentMethod" id="payment" value="wallet" required />
+                            <label class="form-check-label" for="paymentMethod">Wallet</label>
+                        </div>
+                    <% } %> 
+                    <div class="form-check">
+                        <input  class="form-check-input"  type="radio" name="paymentMethod" id="payment" value="paypal" required />
+                        <label class="form-check-label" for="paymentMethod">Paypal</label>
+                    </div>
+                    <div class="form-check">
+                        <input required class="form-check-input" type="radio" name="paymentMethod" id="payment" value="razorpay" />
+                        <label class="form-check-label" for="paymentMethod"> Razorpay </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="payment" value="cod" />
+                        <label class="form-check-label" for="paymentMethod"> Cash On Delivery </label>
+                    </div>
+
+                    <button type="button" onclick="checkOut()" id="checkout-form"
+                        class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 m-t-25">
+                        Proceed to Checkout
+                    </button>
+                <input onkeyup="couponCheck()" id="couponCode" class="flex-c-m stext-104 mt-5  cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" style="width: 100% !important" type="text"
+                    name="coupon" placeholder="Coupon Code">
+                <span id="invalid-coupon" class="pl-2"></span>
+                <div onclick="applyCoupon()" id="applyCouponBtn"
+                    class="flex-c-m stext-101  cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                    Apply coupon
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    // $('#checkout-form').submit((e) => {
+    function checkOut(){
+        // let val = document.getElementById('grandTotalF').innerHTML 
+        // alert('he = '+val)
+        document.getElementById('grandTotalHidden').value = document.getElementById('grandTotalF').innerHTML 
+        // alert(document.getElementById('grandTotalHidden').value)
+        $.ajax({
+            url: '/confirm-checkout',
+            method: 'post',
+            data: $('#checkout-form').serialize(),
+            success: (response) => {
+                if(response.codSuccess){
+                    location.href = '/order-success'
+                }else if(response.paypalSuccess){
+                    location.href = response.link
+                }else{
+                    razorPayment(response)
+                }
+            }
+        })
+    }
+
+
+    // Razor pay 
+    function razorPayment(order) {
+            var options = {
+                "key": "rzp_test_YVjCgdDKEYJVVG", // Enter the Key ID generated from the Dashboard
+                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Watch Man",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+                "handler": function (response) {
+                    verifyPayment(response, order)
+                },
+                "prefill": {
+                    "name": "Muhsin",
+                    "email": "muhsin@example.com",
+                    "contact": "6238577673"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzpl = new Razorpay(options);
+            rzpl.open();
+        }
+    function verifyPayment(payment, order){
+        $.ajax({
+            url:'/verify-payment',
+            data:{
+                payment,
+                order
+            },
+            method:'post',
+            success: (response)=>{
+                if (response.status){
+                    location.href = '/order-success'
+                }else{
+                    alert('Payment Failed')
+                }   
+            }
+        })
+        
+    }
+
+
+
+
+
+    function addressSelected(addressId){
+        // document.getElementsByName("name")[0].value = 
+        $.ajax({
+            url: '/select-address',
+            method: 'post',
+            data: {
+                addressId: addressId
+            },
+            success: (response) => {
+                document.getElementsByName("name")[0].value = response.address.name
+                document.getElementsByName("phone")[0].value = response.address.phone
+                document.getElementsByName("country")[0].value = response.address.country
+                document.getElementsByName("address")[0].value = response.address.fullAddress
+                document.getElementsByName("pincode")[0].value = response.address.pincode
+                document.getElementsByName("city")[0].value = response.address.city
+                document.getElementsByName("state")[0].value = response.address.state
+                document.getElementsByName("district")[0].value = response.address.district
+                document.getElementsByName("landmark")[0].value = response.address.landmark
+            }
+        })
+    }
+</script>
+
+
+
+
+<!-- Coupons -->
+<script>
+    function couponCheck(){
+        let coupon = document.getElementById('couponCode').value;
+        document.getElementById('couponCode').value = coupon.replaceAll(" ", "").toUpperCase()
+    }
+
+    function applyCoupon(){
+
+            let emptyCoupon = document.getElementById('invalid-coupon')
+            let coupon = document.getElementById('couponCode').value
+            if(coupon==''){
+                emptyCoupon.innerHTML = 'Invalid Coupon';
+                emptyCoupon.style.color = 'red'
+            }else{
+                $.ajax(
+                    {
+                        url:'/apply-coupon',
+                        data:{
+                            coupon : coupon
+                        },
+                        method: 'post',
+                        success:(response)=>{
+    
+                            if(response.success){
+                                emptyCoupon.innerHTML = '';
+    
+                                let subTotal = document.getElementById('subTotal').innerHTML; 
+            
+                                document.getElementById('discountAmount').innerHTML = ((parseInt(subTotal)/100)*parseInt(response.discount)).toFixed() 
+                                document.getElementById('grandTotalF').innerHTML = parseInt(subTotal)- ((parseInt(subTotal)/100)*parseInt(response.discount)).toFixed() 
+                                document.getElementById('couponCode').disabled = true
+                                document.getElementById('grandTotalHidden').value = parseInt(subTotal)- ((parseInt(subTotal)/100)*parseInt(response.discount)).toFixed() 
+                                document.getElementById('discountHidden').value = response.discount 
+                                document.getElementById('couponHidden').value = coupon 
+                                // document.getElementById('applyCouponBtn').disabled = true
+                                // $("#applyCouponBtn").off('click')
+                                Swal.fire(
+                                    'Hurray!',
+                                    'You got '+response.discount+'% Discount',
+                                    'success'
+                                )
+                                $("#applyCouponBtn").attr('disabled','disabled');
+                            }else{
+                                emptyCoupon.innerHTML = response.msg;
+                                emptyCoupon.style.color = 'red'
+                            }
+    
+    
+                    }
+                    })
+            }
+    }
+
+</script>

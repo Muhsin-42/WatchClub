@@ -1,0 +1,233 @@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    /* .me-scroll {
+        margin: 4px, 4px;
+        padding: 4px;
+        background-color: #08c708;
+        width: 300px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+    } */
+    .tbl-container {
+        max-width: fit-content;
+        max-height: fit-content;
+    }
+
+    .tbl-fixed {
+        /* overflow-x: scroll; */
+        overflow-y: scroll;
+        /* height: fit-content; */
+    }
+
+    table {
+        min-width: max-content;
+    }
+</style>
+
+
+<div class="mt-5 pt-5 mb-5 p-b-10 ">
+    <div class="container m-t-100 p-3 mb-5 justify-content-center  me-box-shadow me-border-rad25">
+        <h2 class="mb-3 p-3 text-muted text-center  font-weight-bold">My orders</h2>
+
+
+        <div class="container tbl-container">
+            <div class="row tbl-fixed">
+                <div class="col col-12">
+
+
+                    <!-- ####################################################33333333
+                        ####################################################33333333-->
+                    <% let sno=0 %>
+                        <% var orderLocal %>
+                        <% cartIds.forEach(cart=> { %>
+
+                            <table id="ordersTableId" class="me-box-shadow rounded table table-condensed  table-borderless table-responsive p-5 "
+                            style="background-color: white;margin-right: 30px !important; overflow-y: auto;">
+    
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Image</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Payment</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Options</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <% orders.forEach(function(order){ %>
+                                            <% if(cart.valueOf()==order.cartId.valueOf()) {%>
+                                                <% orderLocal=order %>
+                                                    <tr class="mt-5 mb-5 m-5 " style="padding: 20px !important ">
+                                                        <td><%= ++sno %></td>
+                                                        <td><img src="/uploads/products/<%= order.product.img1 %>" width="30" height="30" alt=""></td>
+                                                        <td><%= order.product.title.slice(0,30) %><%= order.product.title.toString().length>30?'...':'' %></td>
+                                                        <td><%= order.quantity %></td>
+
+
+                                                        <% if(order.discountPercentage){ %>
+                                                            <td><b>
+                                                                ₹<%let couponDiss =  (order.product.price-((parseInt(order.product.price)/100) *parseInt(order.discountPercentage) ))*order.quantity %></b>
+                                                                    <% if(order.product.productOfferActive){ %> 
+                                                                        <%= couponDiss - (couponDiss/100)* (order.product.productOffer.offerPercentage) %> 
+                                                                    <% }else{ %>
+                                                                        <%= couponDiss %> 
+                                                                    <% } %> 
+                                                            </td>
+                                                        <% }else{ %>
+                                                            <td>
+                                                                ₹<% if(order.product.productOfferActive){ %> 
+                                                                    <%= parseInt(order.product.price)-((parseInt(order.product.price)/100 *parseInt(order.product.productOffer.offerPercentage) ))  %> 
+                                                                <% }else{ %> 
+                                                                        <%= order.product.price %> 
+                                                                <% } %> 
+
+                                                            </td>
+                                                        <% } %>
+
+
+                                                        <td><%= order.paymentMode %></td>
+                                                        <td id="orderStatus" class="text-uppercase  <%= order.status=='delivered'? 'text-success':'' %>  
+                                                            <%= order.status=='cancelled'? 'text-danger':'' %>
+                                                            <%= order.status=='placed'? 'text-info':'' %>
+                                                            <%= order.status=='shipped'? 'text-warning':'' %>
+                                                            <%= order.status=='returned'? 'text-danger':'' %>
+                                                             "><%= order.status %>
+                                                        </td>
+                                                        <td>
+                                                            <a href="/product-details?id=<%= order.items %>" class="btn btn-outline-primary">View</a>
+                                                            <% if(order.status=="delivered" ){ %>
+                                                                <p class="btn btn-outline-warning" onclick="returnRequest('<%= order._id %>')">Return</p>
+                                                            <% } else if(order.status=="cancelled" ) { %>
+                                                                    <!-- <p class="btn btn-danger">Canceled</p> -->
+                                                            <% } else if(order.status=='returned' ){}else{ %>
+                                                                <button class="btn btn-outline-danger js-addcart-detail" onclick="cancelOrder('<%= order._id %>')">Cancel</button>
+                                                            <% } %>
+                                                        </td>
+
+                                                    </tr>
+
+
+
+                                            <% } %>
+                                        <% }) %>
+                                        <div class="container  mt-5 pt-3 pb-3 bg-dark" style="background-color: rgba(0, 0, 0, 0.7); min-width: 900px;">
+                                                <span class="pl-3 h4 d-flex text-white">
+                                                    <span class=" text-white"> OrderId : &nbsp;</span>
+                                                    <%= cart.toString().slice(-6) %> &nbsp; &nbsp;
+                                                    <!-- <span class=" text-white"> UserId : &nbsp;</span><%= //orderLocal.userId.toString().slice(-6) %> &nbsp; &nbsp; -->
+                                                    <span class=" text-white"> Date:&nbsp;</span><%= moment(orderLocal.date).format('Do MMM YYYY') %> &nbsp; &nbsp;
+                                                    <span class=" text-white"> Total Amount : &nbsp;</span> ₹ <b> <%= orderLocal.amount %></b>
+                                                </span>
+                                                <br>
+                                                <span class="pl-3 text-white">
+                                                    <span class=" h4 text-white"> Address : </span>
+                                                    <%= orderLocal.address.name %>,<%= orderLocal.address.phone %>, <%= orderLocal.address.district %>
+                                                    <%= orderLocal.address.state %>, <%= orderLocal.address.pincode %>
+                                                </span>
+                                        </div>
+                                    </tbody>
+
+                                    <% }) %>
+
+                                </table>
+                                <!-- ####################################################33333333
+                        ####################################################33333333-->
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<script>
+    function cancelOrder(orderId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/cancel-order',
+                    data: {
+                        orderId: orderId
+                    },
+                    method: 'post',
+                    success: (response) => {
+
+                        Swal.fire(
+                            'Cancelled!',
+                            'Your item is cancelled Successfully',
+                            'success'
+                        )
+                        // document.getElementById('orderStatus').innerHTML = 'Cancelld'
+                        // location.reload()
+                        $("#myOrdersTable").load(location.href + " #myOrdersTable");
+                    }
+                })
+
+
+            }
+        })
+    }
+
+
+    function returnRequest(orderId) {
+        let orderPrice = document.getElementById('orderPrice' + orderId).innerHTML
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, request return.'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/return-order',
+                    data: {
+                        orderId: orderId,
+                        returnPrice: orderPrice
+                    },
+                    method: 'patch',
+                    success: (response) => {
+
+                        Swal.fire(
+                            'Returned!',
+                            'Successfully applied for return  Your refund will be updated soon!',
+                            'success'
+                        )
+                        $("#myOrdersTable").load(window.location.href + " #myOrdersTable");
+
+                        // $("#myOrdersTable").load(location.href + " #myOrdersTable");
+                    }
+                })
+
+
+            }
+        })
+    }
+</script>
+
+<!-- <script>
+        $(document).ready(function () {
+            $.noConflict();
+            $('#viewusers').DataTable();
+        })
+    </script> -->

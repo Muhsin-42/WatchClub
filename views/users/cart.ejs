@@ -1,0 +1,305 @@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- breadcrumb -->
+<div class="mt-5 pt-5">
+    <div class="container">
+        <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+            <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+                Home
+                <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+            </a>
+    
+            <span class="stext-109 cl4">
+                Shoping Cart
+            </span>
+        </div>
+    </div>
+</div>
+    
+    <!-- Shoping Cart -->
+
+    <% if (locals.cartEmpty) { %>
+        <!-- <div class="container-flex p-tb-75 bg-dark">
+            <div class="col">
+                <h1 class="text-center" style="font-size: 100px">Cart is Empty!</h1>
+            </div>
+        </div> -->
+        <div class="container d-flex justify-content-center bg-darkT">
+            <a href="/">
+                <img src="/assets/images/empty-cart.gif" alt="" width="600" height="400">
+            </a>
+        </div>
+    <% } else { %>
+        <form class="bg0 p-t-75 p-b-85 " action="/checkout" method="post">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50 ">
+                        <div class="m-l-25 m-r--38 m-lr-0-xl">
+                            <div class="wrap-table-shopping-cart me-box-shadow">
+                                <table class="table-shopping-cart ">
+                                    <tr class="table_head">
+                                        <th class="column-1">Product</th>
+                                        <th class="column-2"></th>
+                                        <th class="column-3" style="min-width: max-content">Price</th>
+                                        <th class="column-4">Quantity</th>
+                                        <th class="column-5">Total</th>
+                                        <th class="column-5">Action</th>
+                                    </tr>
+                                    <% locals.subTotal = 0; let index = 0 %> 
+                                    <% cartItems.forEach(function(item){ %>
+                                        <tr class="table_row">
+                                            <td class="column-1">
+                                                <div class="how-itemcart1">
+                                                    <img src="/uploads/products/<%= item.products[index].img1 %>" alt="IMG">
+                                                </div>
+                                            </td>
+                                            
+                                            <td class="column-2"><%= item.products[index].title %></td>
+                                            <td class="column-3 " style="min-width: 70px"><span id="<%= item.products[index]._id %>price">₹
+                                                <% if(item.products[index].productOfferActive && item.products[index].categoryOfferActive){ %>
+                                                    <% if(item.products[index].productOffer.offerPercentage > item.products[index].categoryOffer.discount ){ %>
+                                                        <% var discount =  item.products[index].productOffer.offerPercentage %>
+                                                    <% }else{ %> 
+                                                        <% var discount =  item.products[index].categoryOffer.discount %>
+                                                    <% } %> 
+                                                    <% locals.discountedPrice=(item.products[index].price) - (item.products[index].price/100)*discount %> 
+									                <%= discountedPrice  %>
+                                                    <% locals.subTotal = locals.subTotal + (discountedPrice*item.quantity)  %> 
+                                                <% }else if(item.products[index].productOfferActive){ %> 
+                                                    <% let discount =  item.products[index].productOffer.offerPercentage %>
+                                                    <% locals.discountedPrice=(item.products[index].price) - (item.products[index].price/100)*discount %> 
+									                <%= discountedPrice  %>
+                                                    <% locals.subTotal = locals.subTotal + (discountedPrice*item.quantity)  %> 
+                                                <% }else if(item.products[index].categoryOfferActive){ %> 
+                                                    <% let discount =  item.products[index].categoryOffer.discount %>
+                                                    <% locals.discountedPrice=(item.products[index].price) - (item.products[index].price/100)*discount %> 
+									                <%= discountedPrice  %>
+                                                    <% locals.subTotal = locals.subTotal + (discountedPrice*item.quantity)  %> 
+                                                <% }else{ %> 
+                                                    <% locals.discountedPrice=item.products[index].price %> 
+                                                    <%= discountedPrice %></span></td>
+                                                    <% locals.subTotal = locals.subTotal + (discountedPrice*item.quantity)  %> 
+
+                                                <% } %> 
+                                            <td class="column-4">
+                                                <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                                    <div id="me-minus" class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" onclick="changeQuantity('<%= item.products[index]._id %>','<%= userId %>',-1,'<%= locals.subTotal %>')">
+                                                        <i class="fs-16 zmdi zmdi-minus"></i>
+                                                    </div>
+                                                    <input class="mtext-104 cl3 txt-center num-product" type="number"
+                                                        name="num-product1" disabled value="<%= item.quantity %>" id="<%= item.products[index]._id %>">
+            
+                                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"  onclick="changeQuantity('<%= item.products[index]._id %>','<%= userId %>',1,'<%= locals.subTotal %>')">
+                                                        <i class="fs-16 zmdi zmdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="column-5" >₹<span id="<%= item.products[index]._id %>total1"><%= discountedPrice*item.quantity %></span></td>
+                                            <td class="column-6">
+                                                <button type="button" id="me-removeFromCart" onclick="removeFromCart('<%= item.products[index]._id %>','<%= userId %>')" class="btn btn-outline-danger">Remove</button>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </table>
+                            </div>
+        
+                        </div>
+                    </div>
+        
+                    <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50 ">
+                        <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm me-box-shadow">
+                            <h4 class="mtext-109 cl2 p-b-30">
+                                Cart Totals
+                            </h4>
+        
+                            <div class="flex-w flex-t bor12 p-b-13">
+                                <div class="size-208">
+                                    <span class="stext-110 cl2">
+                                        Subtotal:
+                                    </span>
+                                </div>
+                                <div class="size-209">₹
+                                    <span class="mtext-110 cl2" id="total2">
+                                        <%= locals.subTotal %> 
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- <div class="flex-w flex-t bor12 p-b-13">
+                                <div class="size-208">
+                                    <span class="stext-110 cl2">
+                                        Discount:
+                                    </span>
+                                </div>
+                                <div class="size-209">₹
+                                    <span class="mtext-110 cl2" id="discountAmount">
+                                        <%=// 0 %> 
+                                    </span>
+                                </div>
+                            </div> -->
+        
+        
+                            <div class="flex-w flex-t p-t-27 p-b-33">
+                                <div class="size-208">
+                                    <span class="mtext-101 cl2" >
+                                        Total :
+                                    </span>
+                                </div>
+        
+                                <div class="size-209 p-t-1">₹
+                                    <span class="mtext-110 cl2" id="total3">
+                                        <%= locals.subTotal %> 
+                                    </span>
+                                </div>
+                                <input type="text" class="d-none" name="grandTotal" id="grandTotal" value="<%= locals.subTotal %>">
+                                <input type="text" class="d-none" name="discount" id="discount" value="0">
+                            </div>
+        
+                            <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                Proceed to Checkout
+                            </button>
+
+                            <!-- <input onkeyup="couponCheck()" id="couponCode" class="flex-c-m stext-104 mt-5  cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" style="width: 100% !important" type="text"
+                                name="coupon" placeholder="Coupon Code">
+                            <span id="invalid-coupon" class="pl-2"></span>
+                            <div onclick="applyCoupon()" id="applyCouponBtn"
+                                class="flex-c-m stext-101  cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                                Apply coupon
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <% } %>
+
+
+<script>
+    function changeQuantity(productId,uId,count){
+        let qty = document.getElementById(productId).value
+        if(qty==1 && count == -1){
+            removeFromCart(productId,uId)
+        }
+        else{
+            let price = parseInt(document.getElementById(productId+'price').innerHTML)
+            subTotal = parseInt(document.getElementById('total3').innerHTML)
+            subTotal = parseInt(subTotal) - parseInt(price*qty)
+            
+            $.ajax({
+                url:'/change-product-quantity',
+                data:{
+                    product: productId,
+                    userId : uId,
+                    count: count,
+                    qty : qty
+                },
+                method: 'post',
+                success:(response)=>{
+                    document.getElementById(productId+'total1').innerHTML = response.quantity * price
+                    document.getElementById('total2').innerHTML = parseInt(response.quantity) * parseInt(price) + parseInt(subTotal)
+                    document.getElementById('total3').innerHTML = parseInt(response.quantity * price) + parseInt(subTotal)
+                    document.getElementById('grandTotal').value = parseInt(response.quantity * price) + parseInt(subTotal)
+                    //to apply coupon
+                    // applyCoupon();
+                    if(count==-1 && qty==1){
+                        setTimeout(function(){
+                                window.location.reload();
+                                }, 3000);
+                        Swal.fire(
+                            'Removed!',
+                            'The item has been removed.',
+                            'success'
+                        )
+                    }
+                }
+            })
+
+        }
+    }
+    function removeFromCart(productId,uId){
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to remove item from cart?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url:'/remove-from-cart',
+                data:{
+                    product: productId,
+                    userId : uId,
+                },
+                method: 'post',
+                success:(response)=>{
+                    Swal.fire(
+                        'Removed!',
+                        'The item has been removed.',
+                        'success'
+                    )
+                    setTimeout(location.reload(),2000)
+                }
+            })    
+        }
+    })
+        
+    }
+</script>
+
+<!-- Coupons -->
+<script>
+    function couponCheck(){
+        let coupon = document.getElementById('couponCode').value;
+        document.getElementById('couponCode').value = coupon.replaceAll(" ", "").toUpperCase()
+    }
+
+    function applyCoupon(){
+
+            let emptyCoupon = document.getElementById('invalid-coupon')
+            let coupon = document.getElementById('couponCode').value
+            if(coupon==''){
+                emptyCoupon.innerHTML = 'Invalid Coupon';
+                emptyCoupon.style.color = 'red'
+            }else{
+                $.ajax(
+                    {
+                        url:'/apply-coupon',
+                        data:{
+                            coupon : coupon
+                        },
+                        method: 'post',
+                        success:(response)=>{
+    
+                            if(response.success){
+                                emptyCoupon.innerHTML = '';
+    
+                                let subTotal = document.getElementById('total2').innerHTML; 
+            
+                                document.getElementById('discountAmount').innerHTML = ((parseInt(subTotal)/100)*parseInt(response.discount)).toFixed() 
+                                document.getElementById('discount').value = response.discount 
+                                document.getElementById('total3').innerHTML = parseInt(subTotal)- ((parseInt(subTotal)/100)*parseInt(response.discount)).toFixed() 
+                                document.getElementById('grandTotal').value = parseInt(subTotal)- ((parseInt(subTotal)/100)*parseInt(response.discount)).toFixed() 
+                                document.getElementById('couponCode').disabled = true
+                                // document.getElementById('applyCouponBtn').disabled = true
+                                // $("#applyCouponBtn").off('click')
+                                $("#applyCouponBtn").attr('disabled','disabled');
+                                    Swal.fire(
+                                        'Hurray!',
+                                        'You got '+response.discount+'% Discount',
+                                        'success'
+                                    )
+                            }else{
+                                emptyCoupon.innerHTML = response.msg;
+                                emptyCoupon.style.color = 'red'
+                            }
+    
+    
+                    }
+                    })
+            }
+    }
+
+</script>

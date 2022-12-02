@@ -1,0 +1,70 @@
+<div class="mt-5 pt-5">
+    <div class="row  justify-content-center  mt-5 mb-5 ">
+        <div class="col-md-6">
+            <div class="card w-75 mx-5 me-box-shadow" style="border-radius: 20px;">
+                <div class="card-header text-center"><h1 class="font-weight-bold">Login</h1></div>
+                <div class="card-body p-4">
+                   <form class="form-horizontal " method="post" action="/login">
+                    <% if(locals.error){ %>
+                        <h5 class="alert alert-danger">
+                            <%= msg %>
+                        </h5>
+                        <% } %>
+    
+                        <div class="form-group">
+                            <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope fa"
+                                            aria-hidden="true"></i></span>
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        placeholder="Enter your Email" />
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="password" class="cols-sm-2 control-label">Password</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg"
+                                            aria-hidden="true"></i></span>
+                                    <input type="password" class="form-control" name="password" id="password"
+                                        placeholder="Enter your Password" />
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="form-group ">
+                            <button type="submit" class="btn  btn-lg btn-block login-button text-white font-weight-bold" style="background-color: #717fe0 !important">Login</button>
+                        </div>
+                    </form>
+                    <form class="form-horizontal" method="post" action="/otp-login">
+                    <h6>OTP Login</h6>
+                    <% if(locals.otpError){ %>
+                        <h5 class="alert alert-danger mt-3">
+                            <%= msg %>
+                        </h5>
+                        <% } %>
+                    <div class="form-group">
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter your phone number" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <button type="submit" class="btn  btn-lg btn-block login-button my-2  text-white font-weight-bold" style="background-color: #717fe0 !important">Otp Login</button>
+                    </div>
+                    </form>
+                    <div class="login-register">
+                        <a href="/signup">signup</a>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</div>
+

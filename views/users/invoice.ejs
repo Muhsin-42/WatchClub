@@ -1,0 +1,67 @@
+
+<div class="mt-5 pt-5">
+    <div class="container p-t-100 mb-5 justify-content-center" id="invoice">
+      <div class="row justify-content-center">
+        <h3 class="mb-3 text-center text-primary font-weight-bold">WatchX Invoice</h3>
+        <table class="table table-borderless table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">OrderID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Total amount</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Address</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                    <tr>
+                        <td class="text-uppercase">ID:<%= order[0]._id %>
+                        </td>
+                        <td>
+                            <%= moment(order.date).format('Do MMM YYYY')%>
+                        </td>
+                        <% if (order.discount){ %>
+                            <td><b>
+                                    <%= order.discount %>
+                                </b></td>
+                            <%} else { %>
+                                <td><b>
+                                        0
+                                    </b></td>
+                                <% } %>
+                        <td><b>
+                                <%= order[0].amount %>
+                            </b></td>
+                        <td>
+                            <%= order[0].paymentMode %>
+                        </td>
+                        <td>
+                            <%= order[0].address.name %><br>
+                                <%= order[0].address.housename %>,<%= order[0].address.town %> <br>
+                                        <%= order[0].address.district %>,<%= order[0].address.pincode %>
+                        </td>
+                    </tr>
+            </tbody>
+
+        </table>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <button class="btn btn-success ml-auto mb-5" onclick="downloadInvoice()">Download</button>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.1/html2pdf.bundle.min.js"></script>
+<script>
+    function downloadInvoice(){
+        alert('he')
+        const element = document.getElementById('invoice');
+        html2pdf().from(element).save()
+    }
+</script>

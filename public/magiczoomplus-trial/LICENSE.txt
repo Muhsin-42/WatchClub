@@ -1,0 +1,122 @@
+LICENSE AGREEMENT
+=================
+
+
+By using any Magic Toolbox product, you confirm that you have read and agreed to this license agreement.
+
+1. Summary
+2. Product license
+3. Module license
+4. Magic Toolbox products
+5. Further information
+
+
+  1. Summary
+------------
+
+ * Commercial websites - you must buy a license.
+ * Non-commercial websites - you may request a free license.
+ * Modules - are free to use and modify, but you must still buy a Product license for use on commercial websites.
+
+
+  2. Product license
+--------------------
+
+1. You may use the product on commercial websites by purchasing a commercial license. A commercial website means:
+
+    1.1. any site which is built, owned or maintained by a profit-making person or organisation, even if the site does not generate revenue;
+    1.2. any site which generates revenue, even if it is otherwise non-commercial;
+    1.3. any government, government-agency or political-party websites.
+
+2. You may use the product on non-commercial websites free of charge subject to the terms of this license. A non-commercial website means:
+
+   2.1. personal or hobby sites which generate no revenue (whether from advertising, commissions, sales or any other source);
+   2.2. websites owned and maintained by charitable or not-for-profit organisations;
+   2.3. websites owned and maintained by a school, college or other educational institution.
+
+3. You must choose the appropriate commercial license for your needs:
+
+   * Single license - for use on 1 website only.
+   * 5 site license - for use on up to 5 websites.
+   * 10 site license - for use on up to 10 websites.
+   * Unlimited license - for use on as many websites as you manage (ideal for web design agencies or businesses with many websites).
+   * Bundlable license - an Unlimited license with the added benefit that it may be integrated into another application (subject to approval).
+
+4. The term "website" means a single website of a single person or organisation. (In most cases, that would be a single domain, although there could feasibly be multiple websites on a single domain e.g. through the use of subdomains). The website could be your own or a website you build/maintain for someone else.
+
+5. You may not sell, redistribute or offer for download any of our products in any form or in any medium, whether original or modified or for profit or not.
+
+6. You agree not to alter, remove or decode any of the source code without explicit written permission from Magic Toolbox.
+
+7. You can not agree to these terms on behalf of a third-party - if your own interest in the site is in any way commercial (for example, a freelancer being paid to build it) then a commercial license is always required, even if the site is for a non-commercial organisation.
+
+8. You agree not to use the product on illegal sites, or on pages which contain illegal material.
+
+9. The terms of this agreement shall be governed by English law, therefore you may not use the product at all in jurisdictions where this agreement is itself illegal, or where you are not empowered to enter into such an agreement.
+
+10. You guarantee not to hold Magic Toolbox responsible for any problems you may encounter, whether directly or indirectly caused by your use of any of our products.
+
+
+  3. Module license
+-------------------
+
+To make it easier to install our products on popular stores / platforms, we provide free modules/plugins/exensions under an open source Artistic License 2.0:
+
+http://www.opensource.org/licenses/artistic-license-2.0
+
+The module comprises of files that make it possible to install/configure the product. The product itself remains licensed under the product license above, so you must buy a license to use the product on a commercial website.
+
+We provide modules for:
+
+ * Avactis
+ * CRE Loaded
+ * CS-Cart
+ * CubeCart
+ * Drupal
+ * Gallery
+ * HikaShop
+ * Jigoshop
+ * Joomla
+ * Loaded Commerce
+ * Magento
+ * OpenCart
+ * osCMax
+ * osCommerce
+ * OXID
+ * PrestaShop
+ * redSHOP
+ * VEYTON 4
+ * VirtueMart
+ * TheCartPress
+ * WooCommerce
+ * WordPress
+ * WordPress e-Commerce
+ * WYSIWYG
+ * X-Cart
+ * xt:Commerce
+ * Zen Cart
+
+
+  4. Magic Toolbox products
+---------------------------
+
+Our products include:
+
+ * Magic Zoom Plus™
+ * Magic Zoom™
+ * Magic 360™
+ * Magic Slideshow™
+ * Magic Scroll™
+ * Magic Thumb™
+
+
+  5. Further information
+------------------------
+
+For further information:
+
+https://www.magictoolbox.com/license/
+
+or contact us at:
+
+https://www.magictoolbox.com/contact/
