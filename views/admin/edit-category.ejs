@@ -1,0 +1,185 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.css"
+  integrity="sha512-+VDbDxc9zesADd49pfvz7CgsOl2xREI/7gnzcdyA9XjuTxLXrdpuz21VVIqc5HPfZji2CypSbxx1lgD7BgBK5g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+<div class="main-panel">        
+    <div class="content-wrapper">
+      <div class="row d-flex justify-content-center ">
+<div class="col-11  grid-margin stretch-card">
+    <div class="card shadow mt-5">
+      <div class="card-body p-5">
+        <h3 class="scard-title">Add Category</h3>
+        <p class="card-description">
+          Add category by providing proper details.
+        </p>
+        <form class="forms-sample" enctype="multipart/form-data" method="post" action="edit-category">
+          <div class="form-group">
+            <input type="text" name="catid" style="display: none" value="<%= category._id %>">
+            <label for="exampleInputName1">Category title</label>
+            <input type="text" name="title"  class="form-control" id="exampleInputName1" value="<%= category.categoryTitle %> " placeholder="Name"  >
+          </div>
+          <div class="row d-flex justify-content-end">
+            <div class="col-3 d-flex flex-column ">
+                <label for="oldimage" style="width: fit-content !important">Current Image</label>
+                <img src="/uploads/categories/<%= category.image %>" style="width: 100px" height="100px" alt="">
+            </div>
+            <div class="col align-self-center">
+                <div class="form-group">
+                    <label for="image">Upload Image</label>
+                  <input type="file" name="image" id="id_image1" class="form-control-file">
+                </div>
+            </div>
+          </div>
+
+          <img src="/assets/product-images/{{this._id}}.jpg" alt="" style="max-width:100px; max-height:100px" id="view">
+
+
+
+          <!-- crop -->
+          <div class="container w-25" >
+            <div id="crop">
+              <div class="vald-info" id="info"></div>
+              <h5 class="error_form text-danger" id="image1_error_message"></h5>
+              <div class="row">
+                <div  id="image-box1" class="col-12 image-container clr">
+                </div>
+                <button type="button" class="col-12 mt-5 pl-3 btn btneds bg-success" id="crop-btn1" style="color: rgb(255, 255, 255);
+                   background-color: rgb(12, 12, 0);
+                   border-radius: 10px; margin-top: 10px;
+                    display: none; width: 10%;
+                     margin: 0rem 0rem 0rem 0rem;">crop</button>
+              </div>
+            </div>
+          </div>
+
+
+
+
+                  <!-- Offer -->
+                  <div class="custom-control custom-switch mt-5">
+                    <input type="checkbox" class="custom-control-input " name="offerToggler" id="offerToggler" onclick="toggleOffer()" <%= category.offerActive?'checked':'' %>>
+                    <label class="custom-control-label" for="offerToggler">Apply offer for category</label>
+                  </div>
+                  <div class="container <%= category.offerActive?'':'d-none' %>" id="offerContainer">
+                      <div class="form-group">
+                        <label for="exampleInputName1">Start Date</label>
+                        <input type="date" name="startDate" class="form-control" id="exampleInputName1" placeholder="Coupon" required  value="<%= new Date().toISOString().split("T")[0] %>" max='2023-12-31' min="<%= new Date().toISOString().split("T")[0] %>" class="datepicker" >
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">End Date</label>
+                        <input type="date" name="endDate" class="form-control"  placeholder="Coupon" required value="<%= new Date().toISOString().split("T")[0] %>" max='2023-12-31' min="<%= new Date().toISOString().split("T")[0] %>" class="datepicker">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Offer discount </label>
+                          <input type="number" name="percentage" id="percentage"value='<%= category.discount %>' min="1" max="100" onkeyup="percentageLimit()" class="form-control" placeholder="Discount %" >
+                        <span id="percent-error"></span>
+                      </div>
+                  </div>
+
+
+
+
+          <div class="form-group d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              <button class="btn btn-light">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+
+
+  <!-- Toggle offer -->
+<script>
+  function toggleOffer(){
+    if(document.getElementById('offerToggler').checked){
+      document.getElementById('offerContainer').classList.remove('d-none');
+    }else{
+      document.getElementById('offerContainer').classList.add('d-none');
+    }
+  }
+</script>
+
+
+
+
+
+
+
+
+<script>
+  function viewimage(event) {
+    document.getElementById('view').src = URL.createObjectURL(event.target.files[0])
+  }
+
+  /////////////for image1///////////////////
+
+  const imagebox1 = document.getElementById("image-box1");
+  const crop_btn1 = document.getElementById("crop-btn1");
+  const input1 = document.getElementById("id_image1");
+
+  // When user uploads the image this event will get triggered
+  input1.addEventListener("change", () => {
+    // Getting image file object from the input variable
+    const img_data1 = input1.files[0];
+    // createObjectURL() static method creates a DOMString containing a URL representing the object given in the parameter.
+    // The new object URL represents the specified File object or Blob object.
+    const url1 = URL.createObjectURL(img_data1);
+    // Creating a image tag inside imagebox which will hold the cropping view image(uploaded file) to it using the url created before.
+    imagebox1.innerHTML = `<img src="${url1}" id="image1" style="width:100%;">`;
+    // Storing that cropping view image in a variable
+    const image1 = document.getElementById("image1");
+    // Displaying the image box
+    document.getElementById("image-box1").style.display = "block";
+    // Displaying the Crop buttton
+    document.getElementById("crop-btn1").style.display = "block";
+    // Hiding the Post button
+    document.getElementById("view").style.display = "block";
+    const cropper1 = new Cropper(image1, {
+      autoCropArea: 1,
+      viewMode: 1,
+      scalable: false,
+      zoomable: false,
+      movable: false,
+      minCropBoxWidth: 50,
+      minCropBoxHeight: 50,
+    });
+    // When crop button is clicked this event will get triggered
+    crop_btn1.addEventListener("click", () => {
+      // This method coverts the selected cropped image on the cropper canvas into a blob object
+      cropper1.getCroppedCanvas().toBlob((blob) => {
+        // Gets the original image data
+        let fileInputElement1 = document.getElementById("id_image1");
+        // Make a new cropped image file using that blob object, image_data.name will make the new file name same as original image
+        let file1 = new File([blob], img_data1.name, {
+          type: "image/*",
+          lastModified: new Date().getTime(),
+        });
+        // Create a new container
+        let container1 = new DataTransfer();
+        // Add the cropped image file to the container
+        container1.items.add(file1);
+        // Replace the original image file with the new cropped image file
+        fileInputElement1.files = container1.files;
+        document.getElementById("view").src = URL.createObjectURL(
+          fileInputElement1.files[0]
+        );
+        // Hide the cropper box
+        document.getElementById("image-box1").style.display = "none";
+        // Hide the crop button
+        document.getElementById("crop-btn1").style.display = "none";
+
+      });
+    });
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.js"
+  integrity="sha512-ZK6m9vADamSl5fxBPtXw6ho6A4TuX89HUbcfvxa2v2NYNT/7l8yFGJ3JlXyMN4hlNbz0il4k6DvqbIW5CCwqkw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>

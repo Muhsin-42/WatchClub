@@ -1,0 +1,106 @@
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Categories</h4>
+        <!-- <p class="card-description">
+          Add class <code>.table-striped</code>
+        </p> -->
+        <div class="table-responsive">
+          <table class="table table-striped shadow" id="categoriesTable">
+            <thead>
+              <tr>
+                <th>Sno</th>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Offer</th>
+                <th>Offer Start</th>
+                <th>Offer End</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+                <% let sno =0 %> 
+                <% categories.forEach(category => { %>
+                                  <tr>
+                                    <td>
+                                        <%= ++sno %> 
+                                    </td>
+                                    <td class="py-1">
+                                      <img class="shadow" src="/uploads/categories/<%= category.image %>" style="height: 50px !important; width: 50px !important;" alt="image"/>
+                                    </td>
+                                    <td>
+                                      <%= category.categoryTitle %> 
+                                    </td>
+                                    <td ><b>
+                                      <% if(category.offerActive){%> <%= category.discount %>% 
+                                      <% }else{         %> NA    <% } %>                            </b> 
+                                    </td>
+                                    <td>
+                                        <% if(category.offerActive){%>
+                                            <%= moment(category.offerStart).format('Do MMM YYYY') %> 
+                                      <% }else{         %> NA    <% } %>                            </b> 
+                                        
+                                    </td>
+                                    <td>
+                                        <% if(category.offerActive){%>
+                                            <%= moment(category.offerEnd).format('Do MMM YYYY') %> 
+                                      <% }else{         %> NA    <% } %>                            </b> 
+                                    </td>
+                                    <td>
+                                        <a href="edit-category?id=<%= category._id %>">
+                                            <button type="button" class="btn btn-outline-primary shadow">Edit</button>
+                                        </a>
+                                        <button type="button" onclick="confirmDelete('<%= category._id  %>')" class="btn btn-outline-danger shadow">Delete</button>
+                                    </td>
+                                  </tr>
+                <%  }); %> 
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+
+
+
+  <script>
+    function confirmDelete(categoryId) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: 'delete-category',
+          data: {
+            categoryId: categoryId
+          },
+          method: 'delete',
+          success: (response) => {
+            Swal.fire(
+              'Good job!',
+              'The category is deleted!',
+              'success'
+            )
+            $("#categoriesTable").load(window.location.href + " #categoriesTable" );
+          }
+        })
+      }
+    })
+  }
+
+  </script>

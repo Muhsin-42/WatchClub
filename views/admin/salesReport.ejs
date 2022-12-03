@@ -1,0 +1,397 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+
+
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+
+        <div class="d-flex justify-content-end p-3">
+            <button type="button" class="btn btn-info hideWhilePrint" onclick="printDiv()">PRINT</button>
+        </div>
+<div class="header bg-gradient-primary col-m  pt-md-8 bg-dark">
+    <div class="container-fluid">
+        <div class="header-body">
+            <!-- Navbar -->
+            <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+                <div class="container-fluid">
+                    <!-- Brand -->
+                    <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/admin">SALES REPORT</a>
+                    <!-- Form -->
+                    <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+                        <div class="form-group mb-0">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Search" type="text">
+                            </div>
+                        </div>
+                    </form>
+                    <!-- User -->
+                    <ul class="navbar-nav align-items-center d-none d-md-flex">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <div class="media align-items-center">
+                                    <span class="avatar avatar-sm rounded-circle">
+                                        <!-- <img alt="Image placeholder" src="/assets/img/theme/team-4-800x800.jpg"> -->
+                                        <!-- <img alt="Image placeholder" src="/admin/images/favicon.png"> -->
+                                    </span>
+                                    <!-- <div class="media-body ml-2 d-none d-lg-block">
+                                        <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+                                    </div> -->
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+                                <div class=" dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Welcome!</h6>
+                                </div>
+                                <a href="./examples/profile.html" class="dropdown-item">
+                                    <i class="ni ni-single-02"></i>
+                                    <span>My profile</span>
+                                </a>
+                                <a href="./examples/profile.html" class="dropdown-item">
+                                    <i class="ni ni-settings-gear-65"></i>
+                                    <span>Settings</span>
+                                </a>
+                                <a href="./examples/profile.html" class="dropdown-item">
+                                    <i class="ni ni-calendar-grid-58"></i>
+                                    <span>Activity</span>
+                                </a>
+                                <a href="./examples/profile.html" class="dropdown-item">
+                                    <i class="ni ni-support-16"></i>
+                                    <span>Support</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="/admin/logout" class="dropdown-item">
+                                    <i class="ni ni-user-run"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="bg-white card pt-5">
+                <canvas class="" id="line"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class=" card pt-5 " style="background-color:#fff;">
+                <canvas class="p-2" id="bar"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="bg-white mt-3 card pt-5 ">
+        <canvas class="" id="pie"></canvas>
+    </div> -->
+    
+    
+    
+    <div class="row mt-5">
+        <div class="col-md-12  mt-4" id="salesReport">
+            <h1 class="text-center"><b>Quick Analysis</b></h1>
+            <table class="table align-items-center table-flush" id="quickreport">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col"></th>
+                        
+                        <th scope="col">Products Sold</th>
+                        <th scope="col">Revenue</th>
+                        <th scope="col">COD</th>
+                        <th scope="col">Razorpay</th>
+                        <th scope="col">Paypal</th>
+                        <th scope="col">Wallet</th>
+                        <th scope="col">Avg Revenue</th>
+                        <th scope="col">Total Orders</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b> Daily</b></td>
+                    
+                        <td><%= daily.productCount %></td>
+                        <td><%= daily.totalSales %></td>
+                    
+                        <td><%= daily.cod %></td>
+                    
+                    
+                        <td><%= daily.razorpay %></td>
+                        <td>
+                    
+                            <%= daily.paypal %>
+                    
+                        </td>
+                        <td><%= daily.wallet %></td>
+                        <td><%= daily.averageRevenue %></td>
+                    
+                        <td><%= daily.totalOrders %></td>
+                    
+                    
+                    </tr>
+                    <tr>
+                        <td><b> Weekly</b></td>
+                    
+                        <td><%= weekly.productCount %></td>
+                        <td><%= weekly.totalSales %></td>
+                    
+                        <td><%= weekly.cod %></td>
+                    
+                    
+                        <td><%= weekly.razorpay %></td>
+                        <td>
+                    
+                            <%= weekly.paypal %>
+                    
+                        </td>
+                        <td><%= weekly.wallet %></td>
+                        <td><%= weekly.averageRevenue %></td>
+                    
+                        <td><%= weekly.totalOrders %></td>
+                    
+                    </tr>
+                    <tr>
+                        <td><b> Yearly</b></td>
+                    
+                        <td><%= yearly.productCount %> </td>
+                        <td><%= yearly.totalSales %></td>
+                    
+                        <td><%= yearly.cod %></td>
+                    
+                    
+                        <td><%= yearly.razorpay %></td>
+                        <td>
+                    
+                            <%= yearly.paypal %>
+                    
+                        </td>
+                        <td><%= yearly.wallet %></td>
+                        <td><%= yearly.averageRevenue %></td>
+                        <td><%= yearly.totalOrders %></td>
+                    
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-md-12  mt-4 mb-5" id="salesReport">
+            <h1 class="text-center"><b>All Transactions</b></h1>
+            <table class="table align-items-center table-flush" id="example">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let sno = 0 %> 
+                    <% data.currentOrders.forEach(order=>{ %>
+                        <tr>
+                            <td><%= ++sno  %> </td>
+                            <td>
+                                <%= order.date %>
+                            </td>
+                            <td>
+                                <%= order.address.name %>
+                            </td>
+                            <td>
+                                <%= order.product.price %>
+                            </td>
+                            <td>
+                                <%= order.paymentMode %>
+                            </td>
+                            <td>
+                                <%= order.status %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    var line = document.getElementById('line').getContext('2d');
+    var chart = new Chart(line, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: ['COD', 'Razorpay', 'Paypal', 'wallet'],
+            datasets: [{
+                label: 'Payment Method',
+                backgroundColor: ['rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'],
+
+
+
+                data: ['<%= data.cod %>', '<%= data.razorpay %>', '<%= data.paypal %>', '<%= data.wallet %>']
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+        }
+    });
+    var ctx = document.getElementById('bar').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'polarArea',
+
+        // The data for our dataset
+        data: {
+            labels: ['Total Orders', 'Success Orders', 'Fail Orders'],
+            datasets: [{
+                label: 'Order Summary',
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1,
+
+
+                data: ['<%= data.totalOrders %>', '<%= data.successOrders %>', '<%= data.failOrders %>']
+            }]
+        },
+
+        // Configuration options go her e
+        options: {}
+    });
+    
+    // var pie = document.getElementById('pie').getContext('2d');
+    // var chart = new Chart(pie, {
+    //     // The type of chart we want to create
+    //     type: 'doughnut',
+
+    //     // The data for our dataset
+    //     data: {
+    //         labels: ['<%=// categWise[0]._id %>', '<%=// categWise[1]._id %>'],
+    //         datasets: [{
+
+    //             backgroundColor: [
+
+    //                 'rgba(255, 99, 132, 0.8)',
+    //                 'rgba(54, 162, 235, 0.8)',
+    //                 'rgba(255, 206, 86, 0.8)'
+    //             ],
+    //             borderColor: [
+
+    //                 'rgba(255, 99, 132, 1)',
+    //                 'rgba(54, 162, 235, 1)',
+    //                 'rgba(255, 206, 86, 1)'
+    //             ],
+
+
+    //             data: ['<%=// categWise[0].total %>', '<%=// categWise[1].total %>']
+    //         }]
+    //     },
+
+    //     // Configuration options go here
+    //     options: {
+    //         scales: {
+    //             yAxes: [{
+    //                 stacked: true
+    //             }]
+    //         }
+    //     }
+    // });
+</script>
+
+
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
+<script>
+   $(document).ready(function () {
+        $('#example').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            "searching": true,
+            "paging": false,
+            'ordering': false,
+            'info': false
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Print Graphs -->
+<script>
+    function printDiv() {
+        
+        var collection = document.getElementsByClassName("hideWhilePrint");
+            for (let i = 0; i < collection.length; i++) {
+                collection[i].classList.add('d-none');
+            }
+
+        window.print();
+        
+        for (let i = 0; i < collection.length; i++) {
+            collection[i].classList.remove('d-none');
+        }
+    }
+</script>

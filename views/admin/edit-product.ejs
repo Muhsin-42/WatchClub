@@ -1,0 +1,92 @@
+
+<div class="main-panel">        
+    <div class="content-wrapper">
+      <div class="row">
+<div class="col-12 grid-margin stretch-card">
+    <div class="card shadow p-5">
+      <div class="card-body">
+        <h4 class="card-title">Edit Product</h4>
+        <p class="card-description">
+          Basic form elements
+        </p>
+        <form class="forms-sample" ref='uploadForm'  enctype="multipart/form-data" method="post" action="edit-product">
+          <div class="form-group">
+            <label for="exampleInputName1">title</label>
+            <input type="text" name="title" value="<%= product.title %>" class="form-control"  id="titleId" placeholder="Product Title" required>
+            <input type="text" name="prdId" value="<%= product._id %>" style="display: none" >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail3">Brand</label>
+            <input type="text" name="brand" value="<%= product.brand %>" class="form-control" id="exampleInputEmail3" placeholder="Brand Name" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword4">Price</label>
+            <input type="number" name="price" value="<%= product.price %>" class="form-control" id="exampleInputPassword4" placeholder="Price in rupees"  required>
+          </div>
+          <div class="form-group">
+            <label for="exampleSelectGender">Gender</label>
+              <select class="form-control" name="gender" id="exampleSelectGender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          <div class="form-group">
+            <label for="exampleSelectGender">Category</label>
+            <select class="form-control" name="category" id="exampleSelectGender">
+              <% categories.forEach(category => { %>                  
+                <option value="<%= category.categoryTitle %>" ><%= category.categoryTitle %> </option>
+                <% }) %>
+              </select>
+            </div>
+            
+            <label for="">Current Images</label>
+            <div class="row ">
+              <div class="col-3">
+                <img src="/uploads/products/<%= product.img1 %>" alt="" style="height: 75px; width: 75px; border-radius: 50%;">
+              </div>
+              <div class="col-3">
+                <img src="/uploads/products/<%= product.img2 %>" alt="" style="height: 75px; width: 75px; border-radius: 50%;">
+              </div>
+              <div class="col-3">
+                <img src="/uploads/products/<%= product.img3 %>" alt="" style="height: 75px; width: 75px; border-radius: 50%;">
+              </div>
+              <div class="col-3">
+                <img src="/uploads/products/<%= product.img4 %>" alt="" style="height: 75px; width: 75px; border-radius: 50%;">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="formFile1" class="form-label mt-4">Select Images</label>
+              <div class="row">
+                <div class="col col-lg-6 mb-4">
+                  <input class="form-control-file" name="image1" type="file" id="formFile1" >
+                </div>
+                <div class="col col-lg-6 mb-4">
+                  <input class="form-control-file" name="image2" type="file" id="formFile1" >
+                </div>
+                <div class="col col-lg-6 mb-2">
+                  <input class="form-control-file" name="image3" type="file" id="formFile1" >
+                </div>
+                <div class="col col-lg-6 mb-2">
+                  <input class="form-control-file" name="image4" type="file" id="formFile1" >
+                </div>
+              </div>
+
+          <div class="form-group">
+            <label for="exampleTextarea1">Description</label>
+            <textarea class="form-control" name="description" id="exampleTextarea1" rows="4" ><%= product.description %>k</textarea>
+          </div>
+          <div class="form-group">
+            <label for="exampleTextarea1">Stock</label>
+            <input class="form-control" type="number" min="0" name="stock"  value="<%= product.stock %>" id="" required>
+          </div>
+      
+          <button type="submit" class="btn btn-primary mr-2">Update Product</button>
+          <button class="btn btn-light">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>

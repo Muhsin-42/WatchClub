@@ -1,0 +1,173 @@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body" id="mainCard">
+                        <h3 class="mb-3 text-center text-primary font-weight-bold">Orders</h3>
+
+
+                                <% let sno=0 %>
+                                <% var orderLocal %>
+                                <% cartIds.forEach(cart => { %>
+
+                                    <table id="myOrdersTable" class="table table-borderlesss table-responsive  shadow "
+                                    style="background-color: white;margin-right: 30px !important;" style="paddingd: 0px !important">
+        
+        
+                                    
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Image</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Payment</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+        
+                                <tbody >
+                                    <% orders.forEach(function(order){ %>
+                                        <% if(cart.valueOf() == order.cartId.valueOf()) {%>
+                                            <% orderLocal = order %> 
+                                            <tr class="mt-5 mb-5 m-5" style="padding: 20px !important " class=" ">
+                                                <td><%= ++sno %></td>
+                                                <td><img src="/uploads/products/<%= order.product.img1 %>" width="30" height="30" alt=""></td>
+                                                <td><%= order.product.title.slice(0,30) %><%= order.product.title.toString().length>30?'...':'' %></td>
+                                                <td><%= order.quantity %></td>
+                                                <!-- <td><b>₹<%= //order.product.price*order.quantity %></b></td> -->
+                                                <% if(order.discountPercentage){ %> 
+                                                    <td><b>₹<%= (order.product.price- ((parseInt(order.product.price)/100) * parseInt(order.discountPercentage) ))*order.quantity %></b></td>
+                                                    <% }else{ %> 
+                                                        <td><b>₹<%= order.product.price*order.quantity %></b></td>
+                                                        <% } %> 
+                                                <td><%= order.paymentMode %></td>
+                                                <td>
+                                                    <% if(order.status=="delivered" ){ %>
+                                                        <h4 class="text-success">ORDER DELIVERED</h4>
+                                                        <% } else if(order.status=="cancelled" ) { %>
+                                                            <h4 class="text-danger text-uppercase">Order Cancelld </h4>
+                                                            <% } else{ %>
+                                                                <input type="text" name="orderId" value="<%= order._id %>" hidden>
+                                                                <select name="status<%= order._id %>" class="form-select btn btn-sm dropdown-toggle 
+                                                                    <%= order.status=='shipped'?'btn-warning':'' %>
+                                                                    <%= order.status=='placed'?'btn-info':'' %>
+                                                                    <%= order.status=='pending'?'btn-secondary':'' %>  " %>
+                                                                    aria-label="Default select
+                                                                    example">
+                                                                    <option value="<%= order.status %>" selected>
+                                                                        <%= order.status %>
+                                                                    </option>
+                                                                    <% if(order.status=='pending' ){ %>
+                                                                        <% }else if(order.status=='placed' ){ %>
+                                                                            <option value="shipped">shipped</option>
+                                                                            <option value="delivered">Delivered</option>
+                                                                            <option value="cancelled">Cancel</option>
+                                                                            <% }else if(order.status=='shipped' ){ %>
+                                                                                <option value="delivered">Delivered</option>
+                                                                                <option value="cancelled">Cancel</option>
+                                                                                <% } %>
+                                                                </select>
+                                                                <input type="text" class="d-none" name="orderId" id=""
+                                                                    value="<%= order._id %>">
+                                                                <input type="text" class="d-none" name="productId"
+                                                                    value="<%= order._id %>">
+                                                                <button class="btn btn-primary"
+                                                                    onclick="updateStatus('<%= order._id %>')">Update</button>
+                                                                <% } %>
+
+                                                </td>
+                                            </tr>
+                                        <% } %>
+                                    <% }) %>
+                                    
+                                <div class="container  mt-5 pt-3 pb-3" style="background-color: #D8E3FF">
+                                    <span class="pl-3 h4 d-flex"> 
+                                            <span class="text-muted"> OrderId : &nbsp;</span> <%= cart.toString().slice(-6) %> &nbsp; &nbsp;
+                                            <span class="text-muted"> UserId : &nbsp;</span> <%= orderLocal.userId.toString().slice(-6) %> &nbsp; &nbsp;   
+                                            <span class="text-muted"> Date:&nbsp;</span> <%= moment(orderLocal.date).format('Do MMM YYYY') %>&nbsp; &nbsp;
+                                            <span class="text-muted"> Total Amount : &nbsp;</span> ₹<%= orderLocal.amount %>
+                                    </span>
+                                    <br>
+                                    <span class="pl-3 ">
+                                        <span class="text-muted h4"> Address : </span>
+                                        <%= orderLocal.address.name %>,
+                                        <%= orderLocal.address.phone %>, <%= orderLocal.address.district %>
+                                        <%= orderLocal.address.state %>, <%= orderLocal.address.pincode %>
+                                    </span>
+                                </div>
+                            </tbody>
+
+                                <% }) %>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- orderId: orderId,
+                    status: $('select[name=status'+addressId+']').val() -->
+<!-- <script>
+        $(document).ready(function () {
+            $.noConflict();
+            $('#viewusers').DataTable();
+        })
+    </script> -->
+</div>
+
+
+
+<script>
+    function cancelOrder(orderId) {
+        $.ajax({
+            url: '/cancel-order',
+            data: {
+                order: orderId
+            },
+            method: 'post',
+            success: (response) => {
+                document.getElementById('order-status').innerHTML = 'Canceld'
+
+                Swal.fire(
+                    'Updated!',
+                    'You have successfully update status!',
+                    'success'
+                )
+            }
+        })
+    }
+
+
+    function updateStatus(orderId) {
+        $.ajax({
+            url: 'change-order-status',
+            data: {
+                order: orderId,
+                status: $('select[name=status' + orderId + ']').val()
+            },
+            method: 'post',
+            success: (response) => {
+                Swal.fire(
+                    'Updated',
+                    'The item is successfully Updated',
+                    'success'
+                )
+                // setTimeout(function () {
+                //     window.location.reload();
+                // }, 3000);
+                $("#mainCard").load(location.href + " #mainCard");
+
+            }
+        })
+    }
+</script>

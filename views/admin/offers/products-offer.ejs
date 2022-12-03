@@ -1,0 +1,81 @@
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Product Offers</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped shadow" id="offersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Sno</th>
+                                        <th>Title</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Discount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% let sno = 0 %> 
+                                    <% productsOffer.forEach(offer=> { %>
+                                        <tr>
+                                            <td> <%= ++sno %>  </td>
+                                            <td> <%= offer.productTitle %></td>
+                                            <td> <%= offer.start.toString().slice(3,15) %></td>
+                                            <td> <%= offer.end.toString().slice(3,15)  %></td>
+                                            <td> <%= offer.offerPercentage %>%</td>
+                                            <td>
+                                                <a href="edit-offer-product?id=<%= offer._id  %>">
+                                                    <button type="button" class="btn btn-outline-primary shadow">Edit</button>
+                                                </a>
+                                                <button type="button" onclick="deleteOffer('<%= offer._id  %>','<%= offer.product %>')" class="btn btn-outline-danger shadow">Delete</button>
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    function deleteOffer(offerId,productId){
+        $.ajax({
+                url:'delete-product-offer',
+                data:{
+                    offerId : offerId,
+                    productId: productId
+                },
+                method: 'delete',
+                success:(response)=>{
+                    if(response.success){
+                        Swal.fire(
+                            'Good job!',
+                            'The offer is Deleted!',
+                            'success'
+                        )
+                        $("#offersTable").load(window.location.href + " #offersTable" );
+                    }   
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                }
+        })
+    }    
+</script>

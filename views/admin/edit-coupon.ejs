@@ -1,0 +1,116 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var jQuery_1_7_1 = $.noConflict(true);
+</script>
+
+
+<div class="main-panel">        
+    <div class="content-wrapper">
+      <div class="row d-flex justify-content-center ">
+<div class="col-11  grid-margin stretch-card">
+    <div class="card shadow mt-5">
+      <div class="card-body p-5">
+        <h3 class="scard-title">Add coupon</h3>
+        <p class="card-description">
+          Add category by providing proper details.
+        </p>
+        <form class="forms-sample"  method="post" action="edit-coupon">
+
+          <% if(locals.error){ %> 
+              <div class="alert alert-danger border-0" role="alert">
+                <%= msg %> 
+              </div>
+          <% } %> 
+          <input type="text" class="d-none" name="couponId" value="<%= coupon._id %>" id="">
+          <div class="form-group">
+            <label for="exampleInputName1">Category title</label>
+            <input type="text" name="coupon" value="<%= coupon.coupon %>" class="form-control" id="couponId" onkeyup="couponName()"   placeholder="Coupon" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Start Date</label>
+            <input type="date" name="startDate" class="form-control" id="exampleInputName1" placeholder="Coupon" required  value="<%= coupon.start.toISOString().split("T")[0] %>" 
+            max='2023-12-31' 
+            min="<%= new Date().toISOString().split("T")[0] %>" 
+            class="datepicker" >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">End Date</label>
+            <input type="date" name="endDate" class="form-control"  placeholder="Coupon" required value="<%= coupon.end.toISOString().split("T")[0] %>" 
+            max='2023-12-31' 
+            min="<%= new Date().toISOString().split("T")[0] %>" 
+            class="datepicker">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Discount percentage</label>
+            <input type="number" name="percentage" id="percentage" min="1" max="100" onkeyup="percentageLimit()" value="<%= coupon.percentage %>" class="form-control" placeholder="Coupon" required>
+            <span id="percent-error"></span>
+          </div>
+
+          <div class="form-group d-flex justify-content-end">
+              <button type="submit"  class="btn btn-primary mr-2">ADD COUPON</button>
+              <button class="btn btn-light">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+
+  <script>
+    function couponName(){
+        let coupon = document.getElementById('couponId').value;
+        document.getElementById('couponId').value = coupon.replaceAll(" ", "").toUpperCase()
+    }
+
+    function percentageLimit(){
+        var percentError = document.getElementById('percent-error');
+        let percent = document.getElementById('percentage').value
+        if(percent<1){
+            percentError.innerHTML = 'Percentage bellow limit';
+			percentError.style.color = 'red'
+        }else if(percent>100){
+            percentError.innerHTML = 'Percentage above limit';
+			percentError.style.color = 'red'
+        }else{
+            percentError.innerHTML = '';
+        }
+
+    }
+  </script>
+
+  <script>
+        function addCoupon(){
+            // alert('hello')
+            $.ajax({
+                url:'/add-coupon',
+                data:{
+                    stock : 'd',
+                    productId: 'df'
+                },
+                method: 'POST',
+                success:(response)=>{
+                    if(response.success){
+
+                        setInterval(location.reload(),5000)
+                        Swal.fire(
+                            'Good job!',
+                            'The stock is updated successfully!',
+                            'success'
+                        )
+                        // addressShow()
+
+                    }   
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        })
+                    }
+                }
+        })
+    } 
+  </script>

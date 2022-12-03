@@ -1,0 +1,71 @@
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Users</h4>
+        <!-- <p class="card-description">
+          Add class <code>.table-striped</code>
+        </p> -->
+        <div class="table-responsive">
+          <table class="table table-striped shadow">
+            <thead>
+              <tr>
+                <th>
+                  Profile
+                </th>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Email
+                </th>
+                <th>
+                  Phone
+                </th>
+                <th>
+                    Action
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+                <% users.forEach(user => { %>
+                                  <tr>
+                                    <td class="py-1">
+                                      <img src="images/faces/face1.jpg" alt="image"/>
+                                    </td>
+                                    <td>
+                                      <%= user.name %> 
+                                    </td>
+                                    <td>
+                                        <%= user.email %> 
+                                    </td>
+                                    <td>
+                                        <%= user.phone   %> 
+                                    </td>
+                                    <td>
+                                        <% if(user.active===false){ %> 
+                                            <a href="unblock-user?id=<%= user._id  %> " onclick="return confirm('Want to unblock the user?');">
+                                                <button type="button" class="btn btn-danger shadow">UnBlock</button>
+                                            </a>
+                                        <% }else{ %> 
+                                            <a href="block-user?id=<%= user._id  %> " onclick="return confirm('Want to Block the user?');">
+                                                <button type="button" class="btn btn-outline-danger shadow">Block</button>
+                                            </a>
+                                        <% } %> 
+                                    </td>
+                                  </tr>
+                <%  }); %> 
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
