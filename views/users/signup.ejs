@@ -139,7 +139,7 @@ var nameError = document.getElementById('name-error');
 		var Required = 15;
 		var left = Required - password.length;
 
-		if (password.length == 0 || password.length < 10) {
+		if (password.length == 0 || password.length < 6) {
 			passwordError.innerHTML = 'More Character Required';
 			passwordError.style.color = 'red'
 			return false;

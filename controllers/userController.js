@@ -35,8 +35,6 @@ let otp = Math.floor(Math.random() * (maxm - minm + 1)) + minm;
 const userControl ={
     indexView : async (req,res,next)=>{
 
-            console.log('dotenv.parsed.key_id = ',dotenv.parsed.key_id);
-        console.log('dotenv.parsed.key_secret = ',dotenv.parsed.key_secret);
         req.session.previousUrl = '/'
         res.locals.pageTitle = 'home'
 
@@ -146,6 +144,7 @@ const userControl ={
         res.render('users/signup')
     },
     signupPost:async(req,res,next)=>{ 
+        console.log('147');
         try {
             const password = req.body.password;
             const confirmPassword = req.body.cpassword;
@@ -153,7 +152,7 @@ const userControl ={
             const userDetails = await Register.find({email: req.body.email});
             const count = await Register.find({email: req.body.email}).count();
     
-    
+            console.log('155');
             if(count!=0)
             {
                 res.render('users/signup',{error:true,msg:'Email already Exists!'})
@@ -165,18 +164,19 @@ const userControl ={
                         name : req.body.name,
                         email: req.body.email,
                         phone: req.body.phone,
+                        wallet: 0,
                         password: passwordHashed
                     }) 
         
                     // Setting Session
+                    
+                    const registered = await registerEmployee.save();
+                    
                     req.session.userEmail = req.body.email;
                     req.session.loggedIn = true;
                     req.session.admin = false;
                     req.session.user = await Register.findOne({email:req.body.email})
-
-                    
-        
-                    const registered = await registerEmployee.save();
+                    console.log('session = ',req.session.user);
 
                     res.status(201).redirect('/')
                 }
@@ -185,7 +185,8 @@ const userControl ={
                 }
             }
         } catch (error) {
-            res.status(400).send(error)
+            // res.status(400).send(error)
+
         }
     },
     logout: (req,res)=>{

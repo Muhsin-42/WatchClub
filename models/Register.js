@@ -19,11 +19,11 @@ const userSchema = new mongoose.Schema({
     },
     phone:{
         type: String,
-        required:true
+        required:false
     },
     wallet:{
         type: Number,
-        required: true
+        required: false
     },
     active:{
         type: Boolean,
