@@ -25,7 +25,8 @@ const cartHealpers = require('../helpers/cartHelper')
 const client = require('twilio')(dotenv.parsed.accountSid,dotenv.parsed.authToken);
 const ObjectId = require('mongoose').Types.ObjectId
 const app             = express()
-const moment = require('moment')
+const moment = require('moment');
+const BannersModel = require('../models/bannerModel');
 
 var minm = 10000;
 var maxm = 99999;
@@ -41,9 +42,10 @@ const userControl ={
         let cartCount = 0;
         const categories = await CategoriesModel.find({});
         const products = await ProductsModel.find({}).sort({_id:-1})
+        const banners = await BannersModel.find({}).sort({_id:-1})
         
         try {
-            res.render('users/index',{categories,products})
+            res.render('users/index',{categories,products,banners})
         } catch (error) {
             res.send('Error occured')
         }
@@ -316,8 +318,8 @@ const userControl ={
                 const userDetails = await Register.findOne({email: req.session.userEmail});
 
 
-                //Update Stock
-                const updateProduct = await ProductsModel.updateOne({_id: Object(req.body.pid)},{$inc : {stock: -kwantity}})
+                // //Update Stock
+                // const updateProduct = await ProductsModel.updateOne({_id: Object(req.body.pid)},{$inc : {stock: -kwantity}})
 
 
                 let pid = ObjectId(req.body.pid)
@@ -523,7 +525,6 @@ const userControl ={
             let cartItems = await userHelper.getAllCartItem(userId);
             console.log('407 = ',cartItems);
 
-            console.log('hehehe');
             console.log('new obj ',cartItems);  
 
             //To save address only if newly addedd
@@ -555,6 +556,11 @@ const userControl ={
                 console.log('424');
                 const result = await order.save();
                 console.log('result',result);
+
+                 //Update Stock
+                 let currentPrdt = await ProductsModel.findOne({_id: element.item})
+                 let stockNew = parseInt(currentPrdt.stock) - parseInt(element.quantity)
+                 const updateProduct = await ProductsModel.updateOne({_id: element.item},{$set : {stock: stockNew}})
             })
         
             
@@ -564,6 +570,8 @@ const userControl ={
             let updateCart = await CartModel.updateOne({_id:cartId},{'active': false} ,{upsert: true})
             console.log('538');
             console.log('updateCart ==== ',updateCart);
+
+            
             
             if(req.body.paymentMethod == 'cod'){
                 let codPlaced = await OrdersModel.updateOne({cartId:cartId},{$set : {'status': 'placed',paymentMode:'cod'}} ,{upsert: true})

@@ -4,6 +4,8 @@ const ProductsModel   =   require('../models/product')
 const CategoryModel =   require('../models/category')
 const UsersModel    =   require('../models/Register')
 const OrdersModel    =   require('../models/orders')
+const BannersModel    =   require('../models/bannerModel')
+
 const express       =   require('express')
 const session       =   require('express-session')
 const bcrypt        =   require('bcrypt');
@@ -642,8 +644,8 @@ const adminControl = {
     // Banners
     bannersView : async( req,res)=>{
         try {
-            console.log('643');
-            res.render('admin/banner/banners')
+            let banners = await BannersModel.find({}).sort({_id:-1})
+            res.render('admin/banner/banners',{banners})
         } catch (error) {
             res.render('layouts/somethingWentWrong')
         }
@@ -654,6 +656,88 @@ const adminControl = {
             res.render('admin/banner/add-banner')
         } catch (error) {
             res.render('layouts/somethingWentWrong')
+        }
+    },
+    addBannerPost : async(req,res)=>{
+        let img1
+        // let count = await BannersModel.find({categoryTitle:req.body.title}).count();
+
+        // if(count==0){
+            if (req.file!=undefined)    img1 = req.file.filename
+
+            console.log('body - ',req.body);
+            let banner = new BannersModel({
+                    title1: req.body.title1,
+                    title2: req.body.title2,
+                    url: req.body.url,
+                    image: img1
+                }) 
+
+    
+            const result = await banner.save();
+            console.log('result = ',result);
+    
+            res.redirect('banners')
+        // }else{
+            // res.render('admin/add-category',{error:true,msg:'Category already exists!'})
+        // }
+
+        // try {
+        //     console.log('req = ',req.body);
+        //     dd
+        // } catch (error) {
+        //     res.render('layouts/somethingWentWrong')
+            
+        // }
+    },
+    editBannerView : async( req,res)=>{
+        try {
+            let banner = await BannersModel.findOne({_id: Object(req.query.id)})
+            console.log('banner = ',banner);
+            res.render('admin/banner/edit-banner',{banner})
+        } catch (error) {
+            res.render('layouts/somethingWentWrong')
+        }
+    },
+    editBannerPost : async(req,res)=>{
+        try {
+
+        let img1
+        let currentBanner = await BannersModel.findOne({_id: Object(req.body.bannerId)})
+        if (req.file!=undefined)    img1 = req.file.filename
+
+            console.log('body - ',req.body);
+
+            const result = await BannersModel.updateOne({  
+                _id: Object(req.body.bannerId) },{
+                    'title1': req.body.title1,
+                    title2: req.body.title2,
+                    url: req.body.url,
+            } ,{upsert: true})
+
+            if(req.file){
+                if (fs.existsSync('./public/uploads/banner/'+currentBanner.image)) {  //Check if file exists
+                    fs.unlinkSync('./public/uploads/banner/'+currentBanner.image)
+                  }
+                const result = await BannersModel.updateOne({  _id: Object(req.body.bannerId) },{'image': req.file.filename} ,{upsert: true});
+            }
+            res.redirect('banners')
+                        
+        } catch (error) {
+            res.render('layouts/somethingWentWrong')
+        }
+    },
+    deleteBanner : async(req,res)=>{
+        console.log('d');
+        try {
+            const bannerId = req.body.bannerId;
+
+            console.log('535 ',Object(bannerId));
+            const result = await BannersModel.deleteOne({_id: Object(bannerId)})
+
+            res.status(200).send({success:true,message: 'Success'})
+        } catch (error) {
+            res.status(400).send({success:false,message: 'Something went wrong'})
         }
     },
 

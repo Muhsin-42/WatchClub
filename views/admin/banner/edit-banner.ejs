@@ -8,11 +8,11 @@
       <div class="col-11  grid-margin stretch-card">
         <div class="card shadow mt-5">
           <div class="card-body p-5">
-            <h3 class="scard-title">Banner</h3>
+            <h3 class="scard-title">Edit Banner</h3>
             <p class="card-description">
-              Add banner by providing proper details.
+              Update banner by providing proper details.
             </p>
-            <form class="forms-sample" enctype="multipart/form-data" method="post" action="add-banner">
+            <form class="forms-sample" enctype="multipart/form-data" method="post" action="edit-banner">
 
               <% if(locals.error){ %>
                 <div class="alert alert-danger border-0" role="alert">
@@ -20,24 +20,33 @@
                 </div>
                 <% } %>
                   <div class="form-group">
+
+                    <input type="text" name="bannerId" value="<%= banner._id %>" hidden>
+
+
+
                     <label for="exampleInputName1">Banner main title</label>
-                    <input type="text" onkeyup="title1()" name="title1" id="title1" class="form-control" id="exampleInputName1" placeholder="Main title" required>
+                    <input type="text" onkeyup="title1()" value="<%= banner.title1 %>" name="title1" id="title1" class="form-control" id="exampleInputName1" placeholder="Main title" required>
                     <span id="title1error"></span>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputName1">Banner sub title</label>
-                    <input type="text" name="title2" id="title2" class="form-control" id="exampleInputName1" placeholder="Sub title" required>
+                    <input type="text" name="title2" id="title2" value="<%= banner.title2 %>" class="form-control" id="exampleInputName1" placeholder="Sub title" required>
                     <span id="title2error"></span>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputName1">URL</label>
-                    <input type="text" onkeyup="urlValidate()" name="url" id="url" class="form-control" id="exampleInputName1" placeholder="URL" required>
+                    <input type="text" onkeyup="urlValidate()" name="url" value="<%= banner.url %>" id="url" class="form-control" id="exampleInputName1" placeholder="URL" required>
                     <span id="urlerror"></span>
                   </div>
 
                   <div class="form-group">
+                    <div class="col-3 d-flex flex-column ">
+                        <label for="oldimage" style="width: fit-content !important">Current Image</label>
+                        <img src="/uploads/banner/<%= banner.image %>" style="width: 100px" height="100px" alt="">
+                    </div>
                     <label for="image">Upload Image</label>
-                    <input type="file" name="image" id="id_image1" class="form-control-file" required>
+                    <input type="file" name="image" id="id_image1"  class="form-control-file" >
                   </div>
                   <img src="/assets/product-images/{{this._id}}.jpg" alt="" style="max-width:100px; max-height:100px" id="view">
 
@@ -63,8 +72,8 @@
 
 
                   <div class="form-group d-flex justify-content-end">
-                    <button type="submit" onclick="this.value='adding to banner';addBanner()" class="btn btn-primary mr-2">Add Banner</button>
-                    <button class="btn btn-light">Cancel</button>
+                    <button type="submit" onclick="this.value='adding to banner';addBanner()" class="btn btn-primary mr-2">Update Banner</button>
+                    <button class="btn btn-light" type="button">Cancel</button>
                   </div>
             </form>
           </div>

@@ -218,73 +218,29 @@ box-shadow: 0px 0px 20px -12px rgba(56,29,56,1); */
 
         <!-- Menu Mobile -->
         <div class="menu-mobile">
-            <ul class="topbar-mobile">
-                <li>
-                    <div class="left-top-bar">
-                        Free shipping for standard order over $100
-                    </div>
-                </li>
-
-                <li>
-                    <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            Help & FAQs
-                        </a>
-
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            My Account
-                        </a>
-
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            EN
-                        </a>
-
-                        <a href="#" class="flex-c-m p-lr-10 trans-04">
-                            USD
-                        </a>
-                    </div>
-                </li>
-            </ul>
 
             <ul class="main-menu-m">
                 <li>
                     <a href="/">Home</a>
-                    <span class="arrow-main-menu-m">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </span>
+                    <span class="arrow-main-menu-m"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </li>
 
                 <!-- <li>
                     <a href="/shop">Shop</a>
                 </li> -->
-                <li>
-                    <a href="/men-products">Men</a>
-                </li>
-                <li>
-                    <a href="/women-products">Women</a>
-                </li>
-                <li>
-                    <a href="/Cart" class="label1 rs1" data-label1="hot">Cart</a>
-                </li>
-
-                <li>
-                    <a href="blog.html">Profile</a>
-                </li>
-
-                <li>
-                    <a href="about.html">About</a>
-                </li>
-
-                <li>
-                    <a href="contact.html">Contactt</a>
-                </li>
+                <li><a href="/men-products">Men</a></li>
+                <li><a href="/women-products">Women</a></li>
+                <li><a href="/Cart" class="label1T rs1" data-label1T="hotT">Cart</a></li>
+                <!-- <li><a href="blog.html">Profile</a></li> -->
+                <!-- <li><a href="about.html">About</a></li> -->
+                <!-- <li><a href="contact.html">Contactt</a></li> -->
                     <% if ( loggedIn ) { %>
-                        <li><a class="dropdown-item" href="/my-profile">My Profile</a></li>
-                        <a class="dropdown-item" href="/orders">My orders</a>
-                        <a class="dropdown-item" href="/logout">Logout</a>
-                       <% } else { %>
-                            <a class="dropdown-item" href="/login">Login</a>
-                            <% } %>
+                        <li><a class="dropdown-itemT" href="/my-profile">My Profile</a></li>
+                        <li><a class="dropdown-itemT" href="/orders">My orders</a></li>
+                        <li><a class="dropdown-itemT" href="/logout">Logout</a></li>
+                    <% } else { %>
+                            <li><a class="dropdown-itemT" href="/login">Login</a></li>
+                    <% } %>
                             
                             
             </ul>

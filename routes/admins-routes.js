@@ -45,10 +45,8 @@ const forLogin =  ((req,res,next)=>{
         next();
 }) 
 
-// ///////////////////////////
+
     // CATEGORIES MULTER START
-// //////////////////////////
-// //Define Storage for images
     const categoryStorage = multer.diskStorage({
         destination: (req,file,callback)=>{
             callback(null,'./public/uploads/categories')
@@ -67,13 +65,12 @@ const forLogin =  ((req,res,next)=>{
             fieldSize: 1024*1024*5
         }
     })
-// ///////////////////////////
     // CATEGORIES MULTER ENDS
 // //////////////////////////
+
+
 // ///////////////////////////
     // PRODUCT MULTER START
-// //////////////////////////
-// //Define Storage for images
     const productStorage = multer.diskStorage({
         destination: (req,file,callback)=>{
             callback(null,'./public/uploads/products')
@@ -92,15 +89,12 @@ const forLogin =  ((req,res,next)=>{
             fieldSize: 1024*1024*5
         }
     })
-// ///////////////////////////
     // CATEGORIES MULTER ENDS
 // //////////////////////////
 
 
 // ///////////////////////////
     // EDIT CATEGORY
-// //////////////////////////
-
 const storageEngine = multer.diskStorage({
     destination: (req, file, cb) => { cb(null, "./public/uploads/categories") },
     filename: (req, file, cb) => { cb(null, file.originalname) }, 
@@ -113,8 +107,30 @@ const imageFilter = (req, file, cb) => {
 
 uploadHandler = multer({ storage: storageEngine, fileFilter: imageFilter })
 
-// ///////////////////////////
     // EDIT CATEGORY END
+// //////////////////////////
+
+// ///////////////////////////
+    // Banner
+    const bannerStorage = multer.diskStorage({
+        destination: (req,file,callback)=>{
+            callback(null,'./public/uploads/banner')
+        },
+
+        //extention
+        filename: (req,file,callback)=>{
+            callback(null,Date.now()+file.originalname)
+        }
+    })
+
+    //upload parameters for multer
+    const upload2 = multer({
+        storage: bannerStorage,
+        limits:{
+            fieldSize: 1024*1024*5
+        }
+    })
+    // BANNER END
 // //////////////////////////
 
 
@@ -161,7 +177,7 @@ router.get('/edit-product',adminLoginCheck,adminLoginCheck,adminControl.editProd
 // products stock
 router.patch('/stock-update',adminLoginCheck,adminControl.stockUpdate)
 
-//orders
+//orders 
 router.get('/orders',adminLoginCheck,adminControl.ordersViewAdmin)
 router.post('/change-order-status',adminLoginCheck,adminControl.changeOrderStatus)
 router.get('/view-order-products',adminLoginCheck,adminControl.viewOrderedProduct)
@@ -185,6 +201,10 @@ router.delete('/delete-product-offer',adminLoginCheck,adminControl.deleteOfferPr
 //Banner
 router.get('/banners',adminControl.bannersView)
 router.get('/add-banners',adminControl.addBannerView)
+router.post('/add-banner',upload2.single('image'),adminControl.addBannerPost)
+router.get('/edit-banner',adminControl.editBannerView)
+router.post('/edit-banner',upload2.single('image'),adminControl.editBannerPost)
+router.delete('/delete-banner',adminControl.deleteBanner)
 
 
 

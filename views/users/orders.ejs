@@ -73,19 +73,19 @@
 
                                                         <% if(order.discountPercentage){ %>
                                                             <td><b>
-                                                                ₹<%let couponDiss =  (order.product.price-((parseInt(order.product.price)/100) *parseInt(order.discountPercentage) ))*order.quantity %></b>
+                                                                ₹<%let couponDiss =  (order.product.price-((parseInt(order.product.price)/100) *parseInt(order.discountPercentage) ))*order.quantity %>
                                                                     <% if(order.product.productOfferActive){ %> 
-                                                                        <%= couponDiss - (couponDiss/100)* (order.product.productOffer.offerPercentage) %> 
+                                                                        <span id="orderPrice<%= order._id %>"><%= couponDiss - (couponDiss/100)* (order.product.productOffer.offerPercentage) %></span> 
                                                                     <% }else{ %>
-                                                                        <%= couponDiss %> 
-                                                                    <% } %> 
+                                                                        <span id="orderPrice<%= order._id %>"><%= couponDiss %></span>
+                                                                    <% } %> </b>    
                                                             </td>
                                                         <% }else{ %>
                                                             <td>
                                                                 ₹<% if(order.product.productOfferActive){ %> 
-                                                                    <%= parseInt(order.product.price)-((parseInt(order.product.price)/100 *parseInt(order.product.productOffer.offerPercentage) ))  %> 
+                                                                    <span id="orderPrice<%= order._id %>"><%= parseInt(order.product.price)-((parseInt(order.product.price)/100 *parseInt(order.product.productOffer.offerPercentage) ))  %></span> 
                                                                 <% }else{ %> 
-                                                                        <%= order.product.price %> 
+                                                                        <span id="orderPrice<%= order._id %>"><%= order.product.price %></span> 
                                                                 <% } %> 
 
                                                             </td>
@@ -188,7 +188,8 @@
 
 
     function returnRequest(orderId) {
-        let orderPrice = document.getElementById('orderPrice' + orderId).innerHTML
+        alert('he '+orderId)
+        let orderPrice = document.getElementById('orderPrice'+orderId).innerHTML
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
