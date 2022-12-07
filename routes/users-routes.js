@@ -82,12 +82,12 @@ router.get('/women-products',reEstablish,userControl.womenProductsView)
 router.get('/addToCart',restrict,(req,res)=>{
     console.log('hello add to cart');
 })
-router.post('/change-product-quantity',restrict,userControl.changePrdtQty)
+router.patch('/change-product-quantity',restrict,userControl.changePrdtQty)
 router.post('/remove-from-cart',restrict,userControl.removeFromCart)
 
 
 router.post('/addToCart',restrict,userControl.addToCartPost)
-router.get('/cart',restrict,restrict,reEstablish,userControl.viewCart)
+router.get('/cart',restrict,reEstablish,userControl.viewCart)
 router.get('/checkout',restrict,reEstablish,userControl.checkoutGet)
 router.post('/checkout',restrict,userControl.checkoutPost)
 
@@ -123,6 +123,11 @@ router.patch('/return-order',restrict,userControl.returnOrder)
 
 //Invoice
 router.get('/invoice',restrict,userControl.invoiceGet)
+
+
+//Searching
+// router.patch('/searching',userControl.searchingGet)
+
 
 module.exports = {
     routes: router
