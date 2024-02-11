@@ -132,7 +132,6 @@ const salesHelpers = {
           productCount: productCount,
           currentOrders: orderSuccess,
         };
-        console.log("132 ");
         resolve(data);
       } catch {
         resolve(0);
@@ -142,7 +141,6 @@ const salesHelpers = {
   dailyReport: () => {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log("142");
         let start = new Date(new Date() - 1000 * 60 * 60 * 24);
         let end = new Date();
 
@@ -203,7 +201,6 @@ const salesHelpers = {
           averageRevenue: total / productCount,
           currentOrders: orderSuccess,
         };
-        // console.log('191 ',data);
         resolve(data);
       } catch {
         resolve(0);
@@ -273,10 +270,8 @@ const salesHelpers = {
           wallet: wallet,
           productCount: productCount,
           averageRevenue: total / productCount,
-
           currentOrders: orderSuccess,
         };
-        // console.log('252 = ',data);
         resolve(data);
       } catch {
         resolve(0);
@@ -348,7 +343,6 @@ const salesHelpers = {
           averageRevenue: total / productCount,
           currentOrders: orderSuccess,
         };
-        // console.log('312', data);
         resolve(data);
       } catch {
         resolve(0);

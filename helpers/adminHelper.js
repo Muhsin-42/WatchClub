@@ -42,7 +42,6 @@ const adminHelper = {
   // weekly revenue
   weeklyRevenue: () => {
     return new Promise(async (resolve, reject) => {
-      // console.log(new Date(new Date()-1000*60*60*24*2));
       try {
         let weeklyRevenue = await OrdersModel.aggregate([
           {
@@ -76,7 +75,6 @@ const adminHelper = {
         ]);
         resolve(weeklyRevenue[0].totalAmount);
       } catch {
-        console.log("68");
         resolve(0);
       }
     });
@@ -151,7 +149,6 @@ const adminHelper = {
             },
           },
         ]);
-        console.log(totalRevenue);
         resolve(totalRevenue[0].totalAmount);
         // resolve(totalRevenue)
       } catch (error) {

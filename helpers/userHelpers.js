@@ -31,7 +31,6 @@ const userHelper = {
     if (product.productOfferActive) {
       let discount = product.productOffer.offerPercentage;
       let price = product.price - (product.price / 100) * discount;
-      console.log("price 35 = ", price);
       return price;
     }
   },
@@ -66,8 +65,6 @@ const userHelper = {
       let tprice = item.products[0].price;
       grandTotal = tqty * tprice + grandTotal;
     });
-    console.log("userId ", userId);
-    console.log("grandd = ", grandTotal);
     return grandTotal;
   },
   getAllCartItem: async (userId) => {
@@ -91,8 +88,6 @@ const userHelper = {
       },
       { $sort: { _id: 1 } },
     ]);
-    console.log("uId= ", userId);
-    console.log("cartItems = ", cartItems);
     return cartItems;
   },
   getCartCount: async (userId) => {
@@ -102,13 +97,8 @@ const userHelper = {
 
   //wallet
   getWalletAmount: async (userId) => {
-    console.log("86");
-    console.log("userId 87 = ", userId);
-
     let result = await Register.findOne({ _id: Object(userId) });
-    console.log("90 = ", result);
     if (result.wallet) {
-      console.log("91 = ", result.wallet);
       return result.wallet;
     } else {
       return 0;
@@ -152,9 +142,6 @@ const userHelper = {
         if (error) {
           throw error;
         } else {
-          console.log("Create Payment Response");
-          console.log(payment, "payment type");
-          console.log(payment.links[1].href);
           resolve(payment.links[1].href);
         }
       });
@@ -162,7 +149,6 @@ const userHelper = {
   },
 
   generateRazorpay: (orderId, total) => {
-    console.log("generateRazorpay");
     return new Promise((resolve) => {
       instance.orders.create(
         {

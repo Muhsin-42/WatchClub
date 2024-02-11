@@ -133,7 +133,6 @@ router.get("/", adminLoginCheck, adminControl.adminDashboardView);
 // chart data
 router.get("/chart-data", (req, res) => {
   adminHelper.getchartData().then((obj) => {
-    console.log("/chart-data", obj);
     let result = obj.result;
     let weeklyReport = obj.weeklyReport;
     res.json({ data: result, weeklyReport });
