@@ -193,8 +193,6 @@ const adminControl = {
         },
         { $upsert: true },
       );
-    } else {
-      console.log(205);
     }
 
     res.redirect("view-products");
