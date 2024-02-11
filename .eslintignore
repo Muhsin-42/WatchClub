@@ -1,0 +1,9 @@
+.eslintrc.js
+package.json
+package-lock.json
+node_modules
+.env
+.gitignore
+.prettierrc
+.husky
+public
