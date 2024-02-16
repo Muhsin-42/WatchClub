@@ -1,16 +1,20 @@
-let dotenv = require("dotenv").config();
+// let dotenv = require("dotenv").config();
+require("dotenv").config();
+
 const paypal = require("paypal-rest-sdk");
 const Razorpay = require("razorpay");
-
+/* eslint-disable */
+console.log("process", process.env.client_id);
 paypal.configure({
   mode: "sandbox", //sandbox or live
-  client_id: dotenv.parsed.client_id,
-  client_secret: dotenv.parsed.client_secret,
+  client_id: process.env.client_id || "",
+  client_secret: process.env.client_secret || "",
 });
 var instance = new Razorpay({
-  key_id: dotenv.parsed.key_id,
-  key_secret: dotenv.parsed.key_secret,
+  key_id: process.env.key_id || "",
+  key_secret: process.env.key_secret || "",
 });
+/* eslint-enable */
 
 const CartModel = require("../models/cart");
 const Register = require("../models/Register");
@@ -171,7 +175,10 @@ const userHelper = {
     return new Promise((resolve, reject) => {
       const crypto = require("crypto");
       // let hmac = crypto.createHmac('sha256', 'VZi2ME245QK5LoSn9mghKl2P')
-      let hmac = crypto.createHmac("sha256", dotenv.parsed.key_secret);
+      /* eslint-disable */
+
+      let hmac = crypto.createHmac("sha256", process.env.key_secret);
+      /* eslint-enable */
 
       hmac.update(
         details.payment.razorpay_order_id +
