@@ -12,14 +12,13 @@ const OrdersModel = require("../models/orders");
 const CategoriesModel = require("../models/category");
 const AddressModel = require("../models/address");
 const CouponModel = require("../models/couponModel");
-let dotenv = require("dotenv").config();
+require("dotenv").config();
 
 const userHelper = require("../helpers/userHelpers");
 const bcrypt = require("bcrypt");
-const client = require("twilio")(
-  dotenv.parsed.accountSid,
-  dotenv.parsed.authToken,
-);
+/*eslint-disable*/
+const client = require("twilio")(process.env.accountSid, process.env.authToken);
+/*eslint-enable*/
 const ObjectId = require("mongoose").Types.ObjectId;
 const moment = require("moment");
 const BannersModel = require("../models/bannerModel");
