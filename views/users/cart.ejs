@@ -20,11 +20,6 @@
     <!-- Shoping Cart -->
 
     <% if (locals.cartEmpty) { %>
-        <!-- <div class="container-flex p-tb-75 bg-dark">
-            <div class="col">
-                <h1 class="text-center" style="font-size: 100px">Cart is Empty!</h1>
-            </div>
-        </div> -->
         <div class="container d-flex justify-content-center bg-darkT">
             <a href="/">
                 <img src="/assets/images/empty-cart.gif" alt="" width="600" height="400">
@@ -122,19 +117,7 @@
                                     <span class="mtext-110 cl2" id="total2"><%= locals.subTotal %></span>
                                 </div>
                             </div>
-                            <!-- <div class="flex-w flex-t bor12 p-b-13">
-                                <div class="size-208">
-                                    <span class="stext-110 cl2">
-                                        Discount:
-                                    </span>
-                                </div>
-                                <div class="size-209">₹
-                                    <span class="mtext-110 cl2" id="discountAmount">
-                                        <%=// 0 %> 
-                                    </span>
-                                </div>
-                            </div> -->
-        
+
         
                             <div class="flex-w flex-t p-t-27 p-b-33">
                                 <div class="size-208">
@@ -154,13 +137,6 @@
                                 Proceed to Checkout
                             </button>
 
-                            <!-- <input onkeyup="couponCheck()" id="couponCode" class="flex-c-m stext-104 mt-5  cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" style="width: 100% !important" type="text"
-                                name="coupon" placeholder="Coupon Code">
-                            <span id="invalid-coupon" class="pl-2"></span>
-                            <div onclick="applyCoupon()" id="applyCouponBtn"
-                                class="flex-c-m stext-101  cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                                Apply coupon
-                            </div> -->
                         </div>
                     </div>
                 </div>

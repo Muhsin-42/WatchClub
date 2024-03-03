@@ -2,12 +2,14 @@
 <html lang="en">
 
 <head>
-        <title>   <% if(locals.pageTitle){ %>
+        <title> Watch Club  <% if(locals.pageTitle){ %>
         <%= locals.pageTitle %>
         <% } %>  
         </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Discover the latest collection of watches at Watch Club. Shop for men's, women's, and children's watches. Free shipping and 24/7 customer support.">
+    <meta name="keywords" content="Watch Club, Men's Watches, Women's Watches, Children's Watches, Premium Watches, Watch Accessories, Watch Brands, Muhsin, Muhsin A Nissar, Watch, Watches">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="/assets/images/icons/favicon.png" />
     <!--===============================================================================================-->
@@ -71,39 +73,15 @@ box-shadow: 0px 0px 20px -12px rgba(56,29,56,1); */
     <header>
         <!-- Header desktop -->
         <div class="container-menu-desktop">
-            <!-- Topbar -->
-            <!-- <div class="top-bar">
-                <div class="content-topbar flex-sb-m h-full container">
-                    <div class="left-top-bar">
-                        Free shipping for standard order over $100
-                    </div>
-
-                    <div class="right-top-bar flex-w h-full">
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            Help & FAQs
-                        </a>
-
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            My Account
-                        </a>
-
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            EN
-                        </a>
-
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            USD
-                        </a>
-                    </div>
-                </div>
-            </div> -->
+  
 
             <div class="wrap-menu-desktop">
                 <nav class="limiter-menu-desktop container">
 
                     <!-- Logo desktop -->
-                    <a href="#" class="logo">
-                        <img src="/assets/images/icons/logo-01.png" alt="IMG-LOGO">
+                    <a href="#" class="logo text-decoration-none text-dark h3">
+                        <span class="font-weight-bold">WATCH&nbsp;</span>
+                        <span class="">CLUB</span>
                     </a>
 
                     <!-- Menu desktop -->
@@ -114,9 +92,6 @@ box-shadow: 0px 0px 20px -12px rgba(56,29,56,1); */
                                 <a href="/">Home</a>
                             </li>
 
-                            <!-- <li>
-                                <a href="/products">Shop</a>
-                            </li> -->
                             <li class="<% if(locals.pageTitle=='Men'){ %><%= 'active-menu' %><% } %>">
                                 <a href="/men-products">Men</a>
                             </li>
@@ -125,8 +100,6 @@ box-shadow: 0px 0px 20px -12px rgba(56,29,56,1); */
                                 <a href="/women-products">Women</a>
                             </li>
                                 <li class="<%= locals.cartCount?'label1':'' %>  <% if(locals.pageTitle=='cart'){ %><%= 'active-menu' %><% } %>" id="cart-count" data-label1="<%=  locals.cartCount?cartCount:'' %>" > <a href="/cart">Cart</a> </li>
-                                 <!-- <li class="<%// if(locals.pageTitle=='cart'){ %><%=// 'active-menu' %><% //} %>" > -->
-                                    <!-- <a href="/cart">Cart</a> -->
                                  </li>
                             <li>
                                 <a href="contact.html">Contact</a>
@@ -145,18 +118,6 @@ box-shadow: 0px 0px 20px -12px rgba(56,29,56,1); */
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </a>
 
-                        <!-- <a href="#"
-                            class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                            data-notify="0" >
-                            <i class="zmdi zmdi-favorite-outline"></i>
-                        </a> -->
-                        <!-- <a href=""
-                            class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-                            <i class="zmdi zmdi-account-o"></i>
-                            
-                        </a> -->
-                        <!-- aria-haspopup="true"
-                        aria-expanded="false" -->
                         <div >
                             
                             <a href="" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 " data-toggle="dropdown"  >
@@ -201,10 +162,6 @@ box-shadow: 0px 0px 20px -12px rgba(56,29,56,1); */
                     <i class="zmdi zmdi-shopping-cart"></i>
                 </a>
 
-                <!-- <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
-                    data-notify="0">
-                    <i class="zmdi zmdi-favorite-outline"></i>
-                </a> -->
             </div>
 
             <!-- Button show menu -->
@@ -430,10 +387,10 @@ box-shadow: 0px 0px 20px -12px rgba(56,29,56,1); */
                                 <div class="slick3 gallery-lb">
                                     <div class="item-slick3" data-thumb="images/product-detail-01.jpg">
                                         <div class="wrap-pic-w pos-relative">
-                                            <img src="/assets/images/product-detail-01.jpg" alt="IMG-PRODUCT">
+                                            <img src="/assets/images/product-detail-01.webp" alt="IMG-PRODUCT">
     
                                             <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                href="/assets/images/product-detail-01.jpg">
+                                                href="/assets/images/product-detail-01.webp">
                                                 <i class="fa fa-expand"></i>
                                             </a>
                                         </div>
@@ -441,10 +398,10 @@ box-shadow: 0px 0px 20px -12px rgba(56,29,56,1); */
     
                                     <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
                                         <div class="wrap-pic-w pos-relative">
-                                            <img src="/assets/images/product-detail-02.jpg" alt="IMG-PRODUCT">
+                                            <img src="/assets/images/product-detail-02.webp" alt="IMG-PRODUCT">
     
                                             <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                href="/assets/images/product-detail-02.jpg">
+                                                href="/assets/images/product-detail-02.webp">
                                                 <i class="fa fa-expand"></i>
                                             </a>
                                         </div>
@@ -577,130 +534,7 @@ box-shadow: 0px 0px 20px -12px rgba(56,29,56,1); */
             </div>
         </div>
     </div>
-
-    <!-- Modal2 -->
-    <!-- <div class="wrap-modal2 js-modal2 p-t-60 p-b-20">
-        <div class="overlay-modal2 js-hide-modal1"></div>
-    
-        <div class="container">
-            <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-                <button class="how-pos3 hov3 trans-04 js-hide-modal1">
-                    <img src="/assets/images/icons/icon-close.png" alt="CLOSE">
-                </button>
-    
-                <div class="row justify-content-center">
-                    <div class="col-md-6 col-lg-7  justify-content-center">
-                        <div class="card ">
-                            <div class="card-header">Login</div>
-                            <div class="card-body">
-                        
-                                <form class="form-horizontal" method="post" action="/login">
-                        
-                        
-                                    <div class="form-group">
-                                        <label for="email" class="cols-sm-2 control-label">Your Email</label>
-                                        <div class="cols-sm-10">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                                <input type="text" class="form-control" name="email" id="email"
-                                                    placeholder="Enter your Email" />
-                                            </div>
-                                        </div>
-                                    </div>
-                        
-                                    <div class="form-group">
-                                        <label for="password" class="cols-sm-2 control-label">Password</label>
-                                        <div class="cols-sm-10">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                                <input type="password" class="form-control" name="password" id="password"
-                                                    placeholder="Enter your Password" />
-                                            </div>
-                                        </div>
-                                    </div>
-                        
-                                    <div class="form-group ">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Login</button>
-                                    </div>
-                                    <div class="login-register">
-                                        <a href="" class="js-show-modal3">Register</a>
-                                    </div>
-                                </form>
-                            </div>
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- Modal3 -->
-    <!-- <div class="wrap-modal3 js-modal3 p-t-60 p-b-20">
-        <div class="overlay-modal3 js-hide-modal1"></div>
-    
-        <div class="container">
-            <div class="bg0  how-pos3-parent">
-                <button class="how-pos3 hov3 trans-04 js-hide-modal1">
-                    <img src="/assets/images/icons/icon-close.png" alt="CLOSE">
-                </button>
-    
-                <div class="row justify-content-center">
-                    <div class="col-md-6 col-lg-7 p-b-5 p-t-5 justify-content-center">
-                        <div class="card">
-                            <div class="card-header">Register</div>
-                            <div class="card-body">
-                        
-                                <form class="form-horizontal" method="post" action="/register">
-                        
-                                    <div class="form-group">
-                                        <label for="name" class="cols-sm-2 control-label">Your Name</label>
-                                        <div class="cols-sm-10">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter your Name" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email" class="cols-sm-2 control-label">Your Email</label>
-                                        <div class="cols-sm-10">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                                <input type="text" class="form-control" name="email" id="email"
-                                                    placeholder="Enter your Email" />
-                                            </div>
-                                        </div>
-                                    </div>
-                        
-                                    <div class="form-group">
-                                        <label for="password" class="cols-sm-2 control-label">Password</label>
-                                        <div class="cols-sm-10">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                                <input type="password" class="form-control" name="password" id="password"
-                                                    placeholder="Enter your Password" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
-                                    </div>
-                                    <div class="login-register">
-                                        <a href="/login">Login</a>
-                                    </div>
-                                </form>
-                            </div>
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    
-
-    
+  
     
     <!--===============================================================================================-->
     <script src="/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
